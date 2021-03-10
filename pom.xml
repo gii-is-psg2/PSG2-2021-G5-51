@@ -255,6 +255,20 @@
         </license>
     </licenses>
 
-
+	<developers>
+	    <developer>
+	      <id>fraborcar</id>
+	      <name>Francisco José Borrego Caro</name>
+	      <email>fraborcar@alum.us.es</email>
+	      <url>https://github.com/Francisco-Borrego</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>scrum master</role>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
+  	</developers>
 
 </project>
