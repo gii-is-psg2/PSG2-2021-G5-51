@@ -6,6 +6,12 @@
 <!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
+	
+<style>
+	nav div div ul a:hover {
+		background-color:#FF7770 !important;
+	}	
+</style>
 
 <nav class="navbar navbar-default" role="navigation">
 	<div class="container">
