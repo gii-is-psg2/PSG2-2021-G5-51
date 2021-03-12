@@ -296,6 +296,19 @@
 	      </roles>
 	      <timezone>Europe/Madrid</timezone>
 	    </developer>
+	    
+	    <developer>
+	      <id>frabelrab</id>
+	      <name>Francisco Javier Beltrán Rabadán</name>
+	      <email>fjbelrab@gmail.com</email>
+	      <url>https://github.com/Franbr31</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
 
   	</developers>
 
