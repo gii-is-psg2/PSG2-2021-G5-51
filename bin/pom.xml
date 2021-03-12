@@ -256,7 +256,6 @@
     </licenses>
 
 	<developers>
-
 	    <developer>
 	      <id>fraborcar</id>
 	      <name>Francisco José Borrego Caro</name>
@@ -270,20 +269,6 @@
 	      </roles>
 	      <timezone>Europe/Madrid</timezone>
 	    </developer>
-
-	    <developer>
-	      <id>frabotrom</id>
-	      <name>Francisco Botello Romero</name>
-	      <email>frabotrom@alum.us.es</email>
-	      <url>https://github.com/frabotrom</url>
-	      <organization>Proceso Software y Gestión II</organization>
-	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
-	      <roles>
-	        <role>developer</role>
-	      </roles>
-	      <timezone>Europe/Madrid</timezone>
-	    </developer>
-
   	</developers>
 
 </project>
