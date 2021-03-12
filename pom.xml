@@ -283,6 +283,19 @@
 	      </roles>
 	      <timezone>Europe/Madrid</timezone>
 	    </developer>
+        
+        <developer>
+	      <id>RoyalFireStorm</id>
+	      <name>Álvaro Sánchez González</name>
+	      <email>alsago68@gmail.com</email>
+	      <url>https://github.com/RoyalFireStorm</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
 
   	</developers>
 
