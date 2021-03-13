@@ -310,6 +310,18 @@
 	      <timezone>Europe/Madrid</timezone>
 	    </developer>
 
+        <developer>
+	      <id>migmolrub</id>
+	      <name>Miguel Molina Rubio</name>
+	      <email>migmolrub@alum.us.es</email>
+	      <url>https://github.com/migmolrub</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
   	</developers>
 
 </project>
