@@ -75,7 +75,7 @@
                                     <spring:param name="visitId" value="${visit.id}"/>
                                     <spring:param name="petId" value="${pet.id}"/>
                                 </spring:url>
-                                <a href="${fn:escapeXml(visitUrl)}">Delete Pet</a>
+                                <a href="${fn:escapeXml(visitUrl)}">Delete Visit</a>
                             </td>
                             </tr>
                         </c:forEach>
