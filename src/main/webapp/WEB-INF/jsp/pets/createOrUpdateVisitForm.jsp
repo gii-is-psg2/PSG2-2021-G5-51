@@ -36,8 +36,8 @@
 
         <form:form modelAttribute="visit" class="form-horizontal">
             <div class="form-group has-feedback">
-                <petclinic:inputField label="Date" name="date"/>
-                <petclinic:inputField label="Description" name="description"/>
+                <petclinic:inputField translate="yes" label="visit.date" name="date"/>
+                <petclinic:inputField translate="yes" label="visit.description" name="description"/>
             </div>
 
             <div class="form-group">
@@ -49,7 +49,7 @@
         </form:form>
 
         <br/>
-        <b>Previous Visits</b>
+        <b><spring:message code="previous-visits"/></b>
         <table class="table table-striped">
             <tr>
                 <th><spring:message code="visit.date"/></th>
