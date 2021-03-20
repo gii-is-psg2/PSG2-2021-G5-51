@@ -21,8 +21,11 @@ $(document).ready(function() {
         var selectedOption = $('#locales').val();
         if (selectedOption != ''){
             window.location.replace('?lang=' + selectedOption);
+			localStorage.setItem("lang", selectedOption);
         }
     });
+	if (localStorage.getItem("lang") != null)
+		document.getElementById('locales').value=localStorage.getItem("lang");
 });
 </script>
 
@@ -30,8 +33,7 @@ $(document).ready(function() {
 <nav class="navbar navbar-default" role="navigation">
 	<span><spring:message code="lang.change"/></span>:
 	<select id="locales">
-		<option value=""></option>
-		<option value="en"><spring:message code="lang.en"/></option>
+		<option value="en" selected><spring:message code="lang.en"/></option>
 		<option value="es"><spring:message code="lang.es"/></option>
 	</select>
 	<div class="container">

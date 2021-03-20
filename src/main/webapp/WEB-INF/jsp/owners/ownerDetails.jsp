@@ -51,7 +51,7 @@
                     <dl class="dl-horizontal">
                         <dt><spring:message code="name"/></dt>
                         <dd><c:out value="${pet.name}"/></dd>
-                        <dt><spring:message code="form.birthday"/></dt>
+                        <dt><spring:message code="form.birthdate"/></dt>
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt><spring:message code="form.type"/></dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
