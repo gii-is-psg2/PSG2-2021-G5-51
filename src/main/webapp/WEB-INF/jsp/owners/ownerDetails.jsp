@@ -55,6 +55,7 @@
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt>Type</dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
+                        <dt><a href="/reservas/listadoReservas/${pet.id}">Reserves for hotel</a></dt>
                     </dl>
                 </td>
                 <td valign="top">
