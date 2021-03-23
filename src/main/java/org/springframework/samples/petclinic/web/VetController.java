@@ -15,8 +15,10 @@
  */
 package org.springframework.samples.petclinic.web;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -97,18 +99,27 @@ public class VetController {
 
 	@PostMapping("/vets/new")
 	public String saveNewVet(@Valid Vet vet, @RequestParam(value="specialties", required= false) Collection<Specialty> specialties, BindingResult binding, ModelMap model) {
+		try {
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Datos del veterinario inválidos.");
 			return VETs_FORM;
 		} else {
-			  
-				for(Specialty s:specialties) {
-					vet.addSpecialty(s);
-				}
+			  if(!(specialties==null)) {
+				  
+				  for(Specialty s:specialties) {
+						vet.addSpecialty(s);
+					} 
+			  }
+				
 			
 			vetService.save(vet);
 			model.addAttribute("message", "Nuevo veterinario creado");
 			return "redirect:/" + "vets";
+		
+		}
+		}catch(IllegalArgumentException ex){
+            this.vetService.save(vet);
+            return  "vets/createOrUpdateVetForm";
 		}
 	}
 
@@ -116,30 +127,47 @@ public class VetController {
 	public String editVet(@PathVariable("id") int id, ModelMap model) {
 		Vet vet = vetService.findById(id);
 		Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
+		Collection<Specialty> specialties = this.specialtyService.findSpecialties();
+		List<Specialty> specialtiesRemaining = new ArrayList<>();
+		for(Specialty s: specialties) {
+			if(!specialtiesOfVet.contains(s)) {
+				specialtiesRemaining.add(s);
+			}
+		}
+		
+		
 		model.addAttribute("vet", vet);
-		model.addAttribute("specialtiesOfVet", specialtiesOfVet);
+		model.addAttribute("specialtiesRemaining", specialtiesRemaining);
 		return VETs_FORM;
 	}
 
 	@PostMapping("/vets/{id}/edit")
 	public String editVet(@PathVariable("id") int id,@RequestParam(value="specialties", required= false) Collection<Specialty> specialties, @Valid Vet modifiedVet, BindingResult binding, ModelMap model) {
 		Vet vet = vetService.findById(id);
+		try {
 
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Datos del veterinario inválidos.");
 			return VETs_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedVet, vet, "id"); 
-			Set<Specialty> sp = new HashSet<>();
+			if(!(specialties==null)) {
 			for(Specialty s:specialties) {
-				sp.add(s);
+				vet.addSpecialty(s);
+			}
 			}
 			
-			vet.setSpecialties(sp);
 			vetService.save(vet);
 			model.addAttribute("message", "Datos del veterinario actualizados");
 			return "redirect:/" + "vets";
 		}
+		
+	} catch(IllegalArgumentException ex){
+        BeanUtils.copyProperties(modifiedVet, vet, "id");
+        vetService.save(vet);
+        model.addAttribute("message", "vet updated succesfully!");
+        return "redirect:/" +"vets";
+        }
 	}
 
 }

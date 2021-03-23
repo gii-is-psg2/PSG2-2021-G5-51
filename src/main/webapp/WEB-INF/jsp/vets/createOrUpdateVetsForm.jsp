@@ -19,16 +19,30 @@
             <div class="form-group has-feedback">
                 <petclinic:inputField label="First Name" name="firstName"/>
                 <petclinic:inputField label="Last Name" name="lastName"/>
-                <label>Specialties:</label>
-                <div class="control-group">
-                 
-              <!--    <c:if test="${specialitiesOfVet.length == 0}">New </c:if>-->
+                <label>Add Specialties:</label>
+                 <c:choose>
+                        <c:when test="${vet['new']}">
+                            <div class="control-group">
+            	
                 
-                  <c:forEach items="${specialties}" var="sp">
+                 <c:forEach items="${specialties}" var="sp">
                   <input type="checkbox" name="specialties" value="${sp.id}">  ${sp.name}<br>
-                   </c:forEach>	
+                   </c:forEach>
                 
             </div>
+                        </c:when>
+                        <c:otherwise>
+                           <div class="control-group">
+            	
+                
+                 <c:forEach items="${specialtiesRemaining}" var="sp">
+                  <input type="checkbox" name="specialties" value="${sp.id}">  ${sp.name}<br>
+                   </c:forEach>
+                
+            </div>
+                        </c:otherwise>
+                    </c:choose>
+                
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
