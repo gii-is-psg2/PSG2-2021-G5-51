@@ -55,7 +55,13 @@
                         <dd><petclinic:localDate date="${pet.birthDate}" pattern="yyyy-MM-dd"/></dd>
                         <dt><spring:message code="form.type"/></dt>
                         <dd><c:out value="${pet.type.name}"/></dd>
-                        <dt><a href="/reservas/listadoReservas/${pet.id}">Reserves for hotel</a></dt>
+                        <dt>
+                            <spring:url value="/owners/{ownerId}/pets/{petId}/reservas" var="reservaUrl">
+                                <spring:param name="ownerId" value="${owner.id}"/>
+                                <spring:param name="petId" value="${pet.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(reservaUrl)}">Reserves for hotel</a>
+                        </dt>
                     </dl>
                 </td>
                 <td valign="top">
