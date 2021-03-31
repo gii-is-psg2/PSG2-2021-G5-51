@@ -5,11 +5,11 @@
 <!-- %@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %-->  
 
 <petclinic:layout pageName="home">
-    <h2>Welcome to the PSG2-2021-G5-51 Pet Clinic</h2>
+    <h1><spring:message code="welcome" text="default"/></h1>
     <div class="row">
         <div class="col-md-12">
             <spring:url value="/resources/images/pets.png" htmlEscape="true" var="petsImage"/>
-            <img class="img-responsive" src="${petsImage}" width="30%" height="30%"/>
+            <img class="img-responsive" src="${petsImage}" width="50%" height="50%"/>
         </div>
     </div>
 </petclinic:layout>

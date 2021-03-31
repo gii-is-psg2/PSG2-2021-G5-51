@@ -21,10 +21,13 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
@@ -39,6 +42,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -68,13 +72,18 @@ public class VetController {
 	@GetMapping(value = { "/vets" })
 	public String showVetList(Map<String, Object> model) {
 		// Here we are returning an object of type 'Vets' rather than a collection of
-		// Vet
-		// objects
+		// Vet objects
 		// so it is simpler for Object-Xml mapping
-		Vets vets = new Vets();
+		final Vets vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		model.put("vets", vets);
 		return "vets/vetList";
+	}
+	
+	@GetMapping(value = "vets/{vetId}/delete")
+	public String deleteVet(@PathVariable final int vetId, final Map<String, Object> model) {
+		this.vetService.deleteVet(vetId);
+		return "redirect:/vets";
 	}
 
 	@GetMapping(value = { "/vets.xml" })
@@ -83,7 +92,7 @@ public class VetController {
 		// Vet
 		// objects
 		// so it is simpler for JSon/Object mapping
-		Vets vets = new Vets();
+		final Vets vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		return vets;
 	}

@@ -40,4 +40,5 @@
 					Vet</a></td>
 		</tr>
 	</table>
+
 </petclinic:layout>

@@ -44,5 +44,6 @@ public interface VetRepository extends CrudRepository<Vet, Integer>{
 	
 	Vet findById(int id);
 
+	void deleteById(int id);
 
 }

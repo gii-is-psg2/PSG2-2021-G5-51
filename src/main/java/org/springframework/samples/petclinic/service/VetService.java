@@ -33,11 +33,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class VetService {
 
-	private VetRepository vetRepository;
+	private final VetRepository vetRepository;
 
 
 	@Autowired
-	public VetService(VetRepository vetRepository) {
+	public VetService(final VetRepository vetRepository) {
 		this.vetRepository = vetRepository;
 	}		
 
@@ -56,5 +56,12 @@ public class VetService {
 	public void save(Vet vet) {
 		vetRepository.save(vet);
 	}
+
+  @Transactional
+	public void deleteVet(final int vetId) {
+		this.vetRepository.deleteById(vetId);
+		
+	}	
+
 
 }

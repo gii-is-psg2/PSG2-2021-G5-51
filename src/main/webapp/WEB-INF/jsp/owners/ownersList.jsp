@@ -6,16 +6,16 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="owners">
-    <h2>Owners</h2>
+    <h2><spring:message code="owners"/></h2>
 
     <table id="ownersTable" class="table table-striped table-header">
         <thead>
         <tr>
-            <th style="width: 150px;">Name</th>
-            <th style="width: 200px;">Address</th>
-            <th>City</th>
-            <th style="width: 120px">Telephone</th>
-            <th>Pets</th>
+            <th style="width: 150px;"><spring:message code="name"/></th>
+            <th style="width: 200px;"><spring:message code="form.address"/></th>
+            <th><spring:message code="form.city"/></th>
+            <th style="width: 120px"><spring:message code="form.telephone"/></th>
+            <th><spring:message code="pets"/></th>
         </tr>
         </thead>
         <tbody>

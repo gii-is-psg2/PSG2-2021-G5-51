@@ -14,16 +14,16 @@
         </script>
     </jsp:attribute>
     <jsp:body>
-        <h2><c:if test="${visit['new']}">New </c:if>Visit</h2>
+        <h2><c:if test="${visit['new']}"><spring:message code="new-f"/> </c:if><spring:message code="visit"/></h2>
 
-        <b>Pet</b>
+        <b><spring:message code="pet"/></b>
         <table class="table table-striped">
             <thead>
             <tr>
-                <th>Name</th>
-                <th>Birth Date</th>
-                <th>Type</th>
-                <th>Owner</th>
+                <th><spring:message code="name"/></th>
+                <th><spring:message code="form.birthdate"/></th>
+                <th><spring:message code="form.type"/></th>
+                <th><spring:message code="owner"/></th>
             </tr>
             </thead>
             <tr>
@@ -36,24 +36,24 @@
 
         <form:form modelAttribute="visit" class="form-horizontal">
             <div class="form-group has-feedback">
-                <petclinic:inputField label="Date" name="date"/>
-                <petclinic:inputField label="Description" name="description"/>
+                <petclinic:inputField translate="yes" label="visit.date" name="date"/>
+                <petclinic:inputField translate="yes" label="visit.description" name="description"/>
             </div>
 
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <input type="hidden" name="petId" value="${visit.pet.id}"/>
-                    <button class="btn btn-default" type="submit">Add Visit</button>
+                    <button class="btn btn-default" type="submit"><spring:message code="visit.add"/></button>
                 </div>
             </div>
         </form:form>
 
         <br/>
-        <b>Previous Visits</b>
+        <b><spring:message code="previous-visits"/></b>
         <table class="table table-striped">
             <tr>
-                <th>Date</th>
-                <th>Description</th>
+                <th><spring:message code="visit.date"/></th>
+                <th><spring:message code="visit.description"/></th>
             </tr>
             <c:forEach var="visit" items="${visit.pet.visits}">
                 <c:if test="${!visit['new']}">
