@@ -156,6 +156,15 @@ public class VetController {
 		try {
 
 		if (binding.hasErrors()) {
+			Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
+			Collection<Specialty> specialties2 = this.specialtyService.findSpecialties();
+			List<Specialty> specialtiesRemaining = new ArrayList<>();
+			for(Specialty s: specialties2) {
+				if(!specialtiesOfVet.contains(s)) {
+					specialtiesRemaining.add(s);
+				}
+			}
+			model.addAttribute("specialtiesRemaining", specialtiesRemaining);
 			model.addAttribute("message", "Datos del veterinario inválidos.");
 			return VETs_FORM;
 		} else {
