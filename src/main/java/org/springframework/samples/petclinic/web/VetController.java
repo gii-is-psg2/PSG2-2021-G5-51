@@ -98,7 +98,7 @@ public class VetController {
 	}
 
 	@PostMapping("/vets/new")
-	public String saveNewVet(@Valid Vet vet, @RequestParam(value="specialties", required= false) Collection<Specialty> specialties, BindingResult binding, ModelMap model) {
+	public String saveNewVet(@Valid Vet vet, BindingResult binding,@RequestParam(value="specialties", required= false) Collection<Specialty> specialties,  ModelMap model) {
 		try {
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Datos del veterinario inválidos.");
