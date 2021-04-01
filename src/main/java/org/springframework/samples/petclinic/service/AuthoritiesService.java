@@ -52,7 +52,7 @@ public class AuthoritiesService {
 	@Transactional
 	public void saveAuthorities(String username, String role) throws DataAccessException {
 		Authorities authority = new Authorities();
-		Optional<User> user = userService.findUser(username);
+		Optional<User> user = Optional.of(userService.findUser(username));
 		if(user.isPresent()) {
 			authority.setUser(user.get());
 			authority.setAuthority(role);

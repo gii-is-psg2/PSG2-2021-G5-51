@@ -33,4 +33,11 @@
             </div>
         </div>
     </form:form>
+    <div class="form-group">
+		<div class="col-sm-offset-2 col-sm-10">
+			<c:if test="${!owner['new']}">
+				<a class="btn btn-default" href="/owners/${owner.id}/delete"><fmt:message key="deleteOwner"/></a>
+			</c:if>
+    	</div>
+	</div>
 </petclinic:layout>

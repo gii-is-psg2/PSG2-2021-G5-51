@@ -51,12 +51,15 @@ public class PetController {
 	private static final String VIEWS_PETS_CREATE_OR_UPDATE_FORM = "pets/createOrUpdatePetForm";
 
 	private final PetService petService;
-        private final OwnerService ownerService;
+	private final OwnerService ownerService;
+	private final OwnerController ownerController;
+       
 
 	@Autowired
-	public PetController(PetService petService, OwnerService ownerService) {
+	public PetController(PetService petService, OwnerService ownerService, OwnerController ownerController) {
 		this.petService = petService;
-                this.ownerService = ownerService;
+        this.ownerService = ownerService;
+        this.ownerController = ownerController;
 	}
 
 	@ModelAttribute("types")
@@ -150,5 +153,23 @@ public class PetController {
 			return "redirect:/owners/{ownerId}";
 		}
 	}
+        
+	@GetMapping(value = "/pets/{petId}/delete")
+	public String delete(@PathVariable("petId") final int petId, @PathVariable("ownerId") final int ownerId, ModelMap model) {
+	    Pet p = this.petService.findPetById(petId);
+	    this.petService.deletePetAndVisits(p);
+	    return "redirect:/owners/{ownerId}";
+	    
+//	    Pet pet = this.petService.findPetById(petId);
+// 		try {
+// 			System.out.println(pet);
+// 			this.petService.deletePetAndVisits(pet);
+// 			model.addAttribute("message", "Pet deleted successfully!");
+// 		}catch(DataAccessException e) {
+//			model.addAttribute("message", "The pet could not be removed");
+// 		}
+// 		return ownerController.initFindForm(model);
+	}
+
 
 }
