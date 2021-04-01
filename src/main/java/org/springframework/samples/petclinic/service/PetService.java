@@ -17,6 +17,7 @@ package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -51,9 +52,10 @@ public class PetService {
 	
 
 	@Autowired
-	public PetService(final PetRepository petRepository, final VisitRepository visitRepository, OwnerService ownerService) {
+	public PetService(final PetRepository petRepository, final VisitRepository visitRepository, ReservaService reservaService, OwnerService ownerService) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
+		this.reservaService = reservaService;
 		this.ownerService = ownerService;
 	}
 
@@ -96,16 +98,19 @@ public class PetService {
 
 	@Transactional
 	public void deletePetAndVisits(Pet pet) throws DataAccessException {
-//		for(Reserva r:reservaService.findReservasByPetId(pet.getId())) {
-//			reservaService.delete(r);
-//		}
-		Owner ow = pet.getOwner();
-		for(Visit v:pet.getVisits()) {
-			deleteVisit(v.getId());
+		List<Reserva> lsr = reservaService.findReservasByPetId(pet.getId());
+		if(!lsr.isEmpty()) {
+			for(Reserva r:lsr) {
+				reservaService.delete(r);
+			}
+		}
+		List<Visit> lsv = pet.getVisits();
+		if(!lsv.isEmpty()) {
+			for(Visit v:pet.getVisits()) {
+				deleteVisit(v.getId());
+			}
 		}
 		petRepository.delete(pet);
-		ow.removePet(pet);
-		ownerService.saveOwner(ow);
 	}
 	
 	public Collection<Visit> findVisitsByPetId(final int petId) {
