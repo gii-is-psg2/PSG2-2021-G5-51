@@ -101,6 +101,13 @@
                                 </spring:url>
                                 <a href="${fn:escapeXml(visitUrl)}"><spring:message code="visit.new"/></a>
                             </td>
+                            <td>
+                                <spring:url value="/owners/{ownerId}/pets/{petId}/delete" var="petUrl">
+                                    <spring:param name="ownerId" value="${owner.id}"/>
+                                    <spring:param name="petId" value="${pet.id}"/>
+                                </spring:url>
+                                <a href="${fn:escapeXml(petUrl)}"><spring:message code="pet.delete"/></a>
+                            </td>
                         </tr>
                     </table>
                 </td>
