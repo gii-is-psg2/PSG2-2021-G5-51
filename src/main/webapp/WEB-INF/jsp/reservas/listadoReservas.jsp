@@ -6,16 +6,16 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <petclinic:layout pageName="reservas">
-    <h2>Reserves for hotel</h2>
+    <h2><spring:message code="reserves-hotel"/></h2>
 
     <table id="reservasTable" class="table table-striped">
         <thead>
         <tr>
-            <th>Pet</th>
-            <th>Start date</th>
-            <th>Finish date</th>
-            <th>Delete</th>
-            <th>Edit</th>
+            <th><spring:message code="pet"/></th>
+            <th><spring:message code="startdate"/></th>
+            <th><spring:message code="finishdate"/></th>
+            <th><spring:message code="delete"/></th>
+            <th><spring:message code="edit"/></th>
         </tr>
         </thead>
         <tbody>
@@ -52,6 +52,6 @@
         <spring:param name="ownerId" value="${ownerId}"/>
         <spring:param name="petId" value="${petId}"/>
     </spring:url>
-    <a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default">New reserve</a>
+    <a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default"><spring:message code="reserve.add"/></a>
  
 </petclinic:layout>
