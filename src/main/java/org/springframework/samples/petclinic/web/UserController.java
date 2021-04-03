@@ -21,9 +21,8 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.service.AuthoritiesService;
+import org.springframework.samples.petclinic.model.User;
 import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -42,10 +41,12 @@ public class UserController {
 	private static final String VIEWS_OWNER_CREATE_FORM = "users/createOwnerForm";
 
 	private final OwnerService ownerService;
+	private final UserService userService;
 
 	@Autowired
-	public UserController(OwnerService clinicService) {
+	public UserController(OwnerService clinicService, UserService userService) {
 		this.ownerService = clinicService;
+		this.userService = userService;
 	}
 
 	@InitBinder
@@ -60,6 +61,13 @@ public class UserController {
 		return VIEWS_OWNER_CREATE_FORM;
 	}
 
+	@GetMapping(value = "users/{username}/delete")
+	public String deleteUser(@PathVariable ("username") String username) {
+		User user = userService.findUser(username);
+		userService.delete(user);
+		return "redirect:/owners/find";
+	}
+	
 	@PostMapping(value = "/users/new")
 	public String processCreationForm(@Valid Owner owner, BindingResult result) {
 		if (result.hasErrors()) {
@@ -70,6 +78,7 @@ public class UserController {
 			this.ownerService.saveOwner(owner);
 			return "redirect:/";
 		}
+		
 	}
 
 }

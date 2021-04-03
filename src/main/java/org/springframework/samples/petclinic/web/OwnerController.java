@@ -21,13 +21,14 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.VetService;
 import org.springframework.samples.petclinic.service.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
@@ -139,6 +140,20 @@ public class OwnerController {
 		ModelAndView mav = new ModelAndView("owners/ownerDetails");
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		return mav;
+	}
+	
+	@GetMapping(value = "/owners/{ownerId}/delete")
+	public String delete(@PathVariable("ownerId") int ownerId, ModelMap model) {
+		Owner owner = ownerService.findOwnerById(ownerId);
+ 		try {
+ 			System.out.println(owner);
+ 			this.ownerService.delete(owner);
+ 			model.addAttribute("message", "Owner deleted successfully!");
+ 		}catch(DataAccessException e) {
+			model.addAttribute("message", "The owner could not be removed");
+ 		}
+ 		return initFindForm(model);
+		
 	}
 
 }

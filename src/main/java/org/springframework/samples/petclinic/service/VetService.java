@@ -18,21 +18,11 @@ package org.springframework.samples.petclinic.service;
 import java.util.Collection;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.dao.DataAccessException;
-import org.springframework.samples.petclinic.model.Owner;
-import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.model.PetType;
 import org.springframework.samples.petclinic.model.Vet;
-import org.springframework.samples.petclinic.model.Visit;
-import org.springframework.samples.petclinic.repository.OwnerRepository;
-import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VetRepository;
-import org.springframework.samples.petclinic.repository.VisitRepository;
-import org.springframework.samples.petclinic.service.exceptions.DuplicatedPetNameException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.StringUtils;
 
 /**
  * Mostly used as a facade for all Petclinic controllers Also a placeholder
@@ -43,17 +33,35 @@ import org.springframework.util.StringUtils;
 @Service
 public class VetService {
 
-	private VetRepository vetRepository;
+	private final VetRepository vetRepository;
 
 
 	@Autowired
-	public VetService(VetRepository vetRepository) {
+	public VetService(final VetRepository vetRepository) {
 		this.vetRepository = vetRepository;
 	}		
 
 	@Transactional(readOnly = true)	
 	public Collection<Vet> findVets() throws DataAccessException {
 		return vetRepository.findAll();
+	}
+	
+	@Transactional(readOnly = true)
+	public Vet findById(int id) throws DataAccessException {
+		return vetRepository.findById(id);
+	}
+	
+	
+	@Transactional
+	public void save(Vet vet) {
+		vetRepository.save(vet);
+	}
+
+  @Transactional
+	public void deleteVet(final int vetId) {
+		this.vetRepository.deleteById(vetId);
+		
 	}	
+
 
 }

@@ -15,9 +15,6 @@
  */
 package org.springframework.samples.petclinic.service;
 
-
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.samples.petclinic.model.User;
@@ -47,7 +44,15 @@ public class UserService {
 		userRepository.save(user);
 	}
 	
-	public Optional<User> findUser(String username) {
-		return userRepository.findById(username);
+	
+	@Transactional(readOnly = true)
+	public User findUser(String username) throws DataAccessException {
+		return userRepository.findUser(username);
 	}
+	
+	@Transactional
+	public void delete(User user) {
+		userRepository.delete(user);
+	}
+	
 }

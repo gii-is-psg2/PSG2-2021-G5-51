@@ -18,11 +18,15 @@ package org.springframework.samples.petclinic.repository;
 import java.util.List;
 
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 import org.springframework.samples.petclinic.model.BaseEntity;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Spring Data JPA specialization of the {@link PetRepository} interface
@@ -53,5 +57,11 @@ public interface PetRepository extends Repository<Pet, Integer> {
 	 * @see BaseEntity#isNew
 	 */
 	void save(Pet pet) throws DataAccessException;
+	
+//	@Transactional
+//    @Modifying
+//    @Query("DELETE FROM Pet p where p.id=:petId")
+//    void deleteById(@Param(value = "petId") int petId);
+	void delete(Pet p) throws DataAccessException;
 
 }

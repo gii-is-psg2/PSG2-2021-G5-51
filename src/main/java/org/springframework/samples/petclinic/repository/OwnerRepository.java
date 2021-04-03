@@ -32,6 +32,8 @@ import org.springframework.samples.petclinic.repository.OwnerRepository;
  * @since 15.1.2013
  */
 public interface OwnerRepository extends Repository<Owner, Integer> {
+	
+	void delete(Owner owner) throws DataAccessException;
 
 	/**
 	 * Save an <code>Owner</code> to the data store, either inserting or updating it.
@@ -59,5 +61,5 @@ public interface OwnerRepository extends Repository<Owner, Integer> {
 	 */	
 	@Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
 	public Owner findById(@Param("id") int id);
-
+	
 }
