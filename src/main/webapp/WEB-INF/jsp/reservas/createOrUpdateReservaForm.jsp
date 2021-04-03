@@ -17,7 +17,7 @@
     </jsp:attribute>
     <jsp:body>
         <h2>
-            <c:if test="${reserva['new']}">New </c:if> Reserve
+            <c:if test="${reserva['new']}"><spring:message code="new-f"/> </c:if> <spring:message code="reserve"/>
         </h2>
         <b><spring:message code="pet"/></b>
         <table class="table table-striped">
@@ -38,17 +38,17 @@
         </table>
         <form:form modelAttribute="reserva" class="form-horizontal" id="add-reserva-form">
             <div class="form-group has-feedback">
-                <petclinic:inputField label="Start date" name="startDate"/>
-                <petclinic:inputField label="Finish date" name="finishDate"/>
+                <petclinic:inputField translate="yes" label="startdate" name="startDate"/>
+                <petclinic:inputField translate="yes" label="finishdate" name="finishDate"/>
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
                     <c:choose>
                         <c:when test="${reserva['new']}">
-                            <button class="btn btn-default" type="submit">Add reserve</button>
+                            <button class="btn btn-default" type="submit"><spring:message code="reserve.add"/></button>
                         </c:when>
                         <c:otherwise>
-                            <button class="btn btn-default" type="submit">Update reserve</button>
+                            <button class="btn btn-default" type="submit"><spring:message code="reserve.update"/></button>
                         </c:otherwise>
                     </c:choose>
                 </div>

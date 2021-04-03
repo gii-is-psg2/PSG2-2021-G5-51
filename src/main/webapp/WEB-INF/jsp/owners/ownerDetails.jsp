@@ -60,7 +60,7 @@
                                 <spring:param name="ownerId" value="${owner.id}"/>
                                 <spring:param name="petId" value="${pet.id}"/>
                             </spring:url>
-                            <a href="${fn:escapeXml(reservaUrl)}">Reserves for hotel</a>
+                            <a href="${fn:escapeXml(reservaUrl)}"><spring:message code="reserves-hotel"/></a>
                         </dt>
                     </dl>
                 </td>

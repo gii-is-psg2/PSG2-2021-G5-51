@@ -26,10 +26,10 @@
                         <c:out value="${pet.owner.firstName} ${pet.owner.lastName}"/>
                     </div>
                 </div>
-                <petclinic:inputField label="Name" name="name"/>
-                <petclinic:inputField label="Birth Date" name="birthDate"/>
+                <petclinic:inputField translate="yes" label="name" name="name"/>
+                <petclinic:inputField translate="yes" label="form.birthdate" name="birthDate"/>
                 <div class="control-group">
-                    <petclinic:selectField name="type" label="Type " names="${types}" size="5"/>
+                    <petclinic:selectField translate="yes" name="type" label="form.type" names="${types}" size="5"/>
                 </div>
             </div>
             <div class="form-group">
