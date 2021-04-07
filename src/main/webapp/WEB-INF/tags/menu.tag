@@ -68,6 +68,12 @@ $(document).ready(function() {
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="menu.vets"/></span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'vets'}" url="/causas/list"
+					title="causes">
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
+					<span><spring:message code="menu.causes"/></span>
+				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">

@@ -91,5 +91,15 @@ INSERT INTO reservas(id, pet_id, start_date, finish_date) VALUES (2, 1, '2014-01
 INSERT INTO reservas(id, pet_id, start_date, finish_date) VALUES (3, 1, '2015-01-01', '2015-02-01');
 --
 
+--Pruebas causas
+INSERT INTO causas(id, name, description, budget_target, organization) VALUES (1, 'Ayudar a animales abandonados', 
+	'Necesitamos dinero para ayudar a animales abandonados.', 1000.50, 'Asociación contra el abandono animal');
+INSERT INTO causas(id, name, description, budget_target, organization) VALUES (2, 'Ayudar a animales maltratados', 
+	'Necesitamos dinero para ayudar a animales maltratados.', 2500.0, 'Asociación contra el maltrato animal');
+INSERT INTO causas(id, name, description, budget_target, organization) VALUES (3, 'Causa de prueba 1', 
+	'Esto es una causa de prueba.', 100, 'Asociación de prueba 1');
+INSERT INTO causas(id, name, description, budget_target, organization) VALUES (4, 'Causa de prueba 2', 
+	'Esto es una causa de prueba.', 3456.84, 'Asociación de prueba 2');
+--
 
 
