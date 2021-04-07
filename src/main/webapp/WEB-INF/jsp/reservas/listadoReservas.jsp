@@ -48,10 +48,23 @@
         </c:forEach>
         </tbody>
     </table>
-    <spring:url value="/owners/{ownerId}/pets/{petId}/reservas/new" var="reservaUrl">
-        <spring:param name="ownerId" value="${ownerId}"/>
-        <spring:param name="petId" value="${petId}"/>
-    </spring:url>
-    <a href="${fn:escapeXml(reservaUrl)}" class="btn btn-default"><spring:message code="reserve.add"/></a>
+
+
+   <table class="table-buttons">
+		<tr>
+			<!-- <td><a href="<spring:url value="/vets.xml" htmlEscape="true" />">View
+					as XML</a></td> -->
+		<spring:url value="/owners/{ownerId}/pets/{petId}/reservas/new" var="reservaUrl">
+        	<spring:param name="ownerId" value="${ownerId}"/>
+       	 	<spring:param name="petId" value="${petId}"/>
+    	</spring:url>
+			<td>
+				<a href="${fn:escapeXml(reservaUrl)}"  class="btn  btn-success">
+				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+				<spring:message code="reserve.add"/></a>
+			</td>
+		</tr>
+	</table>
+  
  
 </petclinic:layout>

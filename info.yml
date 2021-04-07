@@ -1,0 +1,28 @@
+project:
+  name: 'PSG2-2021-G5-51'
+  owner: 'L5'
+  teamId: '51'
+  identities:
+    github:
+      url: 'https://github.com/gii-is-psg2/PSG2-2021-G5-51'
+  members:
+    member1:
+      name: 'Francisco José'
+      surname: 'Borrego Caro' 
+      githubUsername: 'Francisco-Borrego'
+    member2:
+      name: 'Francisco Botello'
+      surname: 'Romero'
+      githubUsername: 'frabotrom'
+    member3:
+      name: 'Francisco Javier'
+      surname: 'Beltrán Rabadán'
+      githubUsername: 'Franbr31'
+    member4:
+      name: 'Álvaro'
+      surname: 'Sánchez González'
+      githubUsername: 'RoyalFireStorm'
+    member5:
+      name: 'Miguel'
+      surname: 'Molina Rubio'
+      githubUsername: 'migmolrub'

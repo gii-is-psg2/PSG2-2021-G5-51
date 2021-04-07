@@ -1,5 +1,6 @@
 <%@ page session="false" trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
@@ -12,7 +13,8 @@
 			<tr>
 				<th><spring:message code="name"/></th>
 				<th><spring:message code="specialties"/></th>
-				<th></th>
+				<th><spring:message code="delete"/></th>
+            	<th><spring:message code="edit"/></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -22,10 +24,16 @@
 					<td><c:forEach var="specialty" items="${vet.specialties}">
 							<c:out value="${specialty.name} " />
 						</c:forEach> <c:if test="${vet.nrOfSpecialties == 0}"><spring:message code="none"/></c:if></td>
-						
-						 <td><a href="/vets/${vet.id}/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-                	</a>
-                </td>
+					
+                	<td>
+	                    <a href="vets/${vet.id}/delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
+                	</td>
+                	
+                			
+					<td><a href="/vets/${vet.id}/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+                		</a>
+                	</td>
+                		
 				</tr>
 			</c:forEach>
 		</tbody>
