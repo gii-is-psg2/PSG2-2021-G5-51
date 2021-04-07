@@ -16,11 +16,15 @@
 package org.springframework.samples.petclinic.service;
 
 import java.util.Collection;
+import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
 import org.springframework.samples.petclinic.model.PetType;
+import org.springframework.samples.petclinic.model.Reserva;
 import org.springframework.samples.petclinic.model.Visit;
 import org.springframework.samples.petclinic.repository.PetRepository;
 import org.springframework.samples.petclinic.repository.VisitRepository;
@@ -37,17 +41,22 @@ import org.springframework.util.StringUtils;
  */
 @Service
 public class PetService {
-
+	
 	private final PetRepository petRepository;
 	
 	private final VisitRepository visitRepository;
 	
+	private ReservaService reservaService;
+	
+	private OwnerService ownerService;
+	
 
 	@Autowired
-	public PetService(final PetRepository petRepository,
-			final VisitRepository visitRepository) {
+	public PetService(final PetRepository petRepository, final VisitRepository visitRepository, ReservaService reservaService, OwnerService ownerService) {
 		this.petRepository = petRepository;
 		this.visitRepository = visitRepository;
+		this.reservaService = reservaService;
+		this.ownerService = ownerService;
 	}
 
 	@Transactional(readOnly = true)
@@ -59,6 +68,7 @@ public class PetService {
 	public void saveVisit(final Visit visit) throws DataAccessException {
 		this.visitRepository.save(visit);
 	}
+	
 
 	@Transactional(readOnly = true)
 	public Pet findPetById(final int id) throws DataAccessException {
@@ -73,11 +83,6 @@ public class PetService {
             }else
                 this.petRepository.save(pet);                
 	}
-
-
-	public Collection<Visit> findVisitsByPetId(final int petId) {
-		return this.visitRepository.findByPetId(petId);
-	}
 	
 	@Transactional
 	public void deleteVisit(final int visitId) {
@@ -85,5 +90,31 @@ public class PetService {
 		this.visitRepository.delete(v);
 		
 	}
+	
+	@Transactional
+	public void delete(Pet pet) throws DataAccessException {
+		petRepository.delete(pet);
+	}
 
+	@Transactional
+	public void deletePetAndVisits(Pet pet) throws DataAccessException {
+		List<Reserva> lsr = reservaService.findReservasByPetId(pet.getId());
+		if(!lsr.isEmpty()) {
+			for(Reserva r:lsr) {
+				reservaService.delete(r);
+			}
+		}
+		List<Visit> lsv = pet.getVisits();
+		if(!lsv.isEmpty()) {
+			for(Visit v:pet.getVisits()) {
+				deleteVisit(v.getId());
+			}
+		}
+		petRepository.delete(pet);
+	}
+	
+	public Collection<Visit> findVisitsByPetId(final int petId) {
+		return this.visitRepository.findByPetId(petId);
+	}
+	
 }

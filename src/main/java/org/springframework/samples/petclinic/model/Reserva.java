@@ -8,6 +8,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name="reservas")
@@ -18,10 +20,12 @@ public class Reserva extends BaseEntity {
 	private Pet pet;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JoinColumn(name="start_date")
 	private LocalDate startDate;
 	
 	@NotNull
+	@DateTimeFormat(pattern = "yyyy/MM/dd")
 	@JoinColumn(name="finish_date")
 	private LocalDate finishDate;
 
