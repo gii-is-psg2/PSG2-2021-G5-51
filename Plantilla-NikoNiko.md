@@ -36,8 +36,8 @@ In the retrospective meeting, the team has a discussion about those results.
 
 | Day           | Francisco Borrego    | Francisco Beltrán  | Francisco Botello     | Álvaro Sánchez     | Miguel Molina     | [Member F]     |
 | ------------- | ------------- | -------------  | -------------  | -------------  | -------------  | -------------  |
-| 07/04         | :smile:        |                |                |                |                |                |
-| 09/04         |               | :neutral_face:              | :neutral_face:               |                |    :neutral_face:            |                |
+| 07/04         | :smiley:        |                |                |                |                |                |
+| 09/04         | :neutral_face:               | :neutral_face:              | :neutral_face:               |                |    :neutral_face:            |                |
 | Day 3         |               |               |                |                |                |                |
 | Day 4         |              |               |                |                |                |                |
 ...
