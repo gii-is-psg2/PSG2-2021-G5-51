@@ -1,7 +1,10 @@
 package org.springframework.samples.petclinic.model;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +25,18 @@ public class Causa extends NamedEntity {
 	
 	@NotEmpty
 	private String organization;
+	
+	@OneToMany
+	private Set<Donacion> donaciones;
+	
+	
+	public Set<Donacion> getDonaciones() {
+		return donaciones;
+	}
+
+	public void setDonaciones(Set<Donacion> donaciones) {
+		this.donaciones = donaciones;
+	}
 
 	public String getDescription() {
 		return description;

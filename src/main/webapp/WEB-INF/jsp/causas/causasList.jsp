@@ -16,6 +16,7 @@
             <th><spring:message code="description"/></th>
             <th><spring:message code="budget_target"/></th>
             <th><spring:message code="organization"/></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,8 @@
                     
                     <td><c:out value="${causa.organization}"/></td>
                     
+                    <td><a href="<spring:url value="" htmlEscape="true" />" class="btn  btn-success"><span
+					class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create Donation</a></td>
                 </tr>
         </c:forEach>
         </tbody>
