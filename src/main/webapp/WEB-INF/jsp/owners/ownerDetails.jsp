@@ -62,6 +62,12 @@
                             </spring:url>
                             <a href="${fn:escapeXml(reservaUrl)}"><spring:message code="reserves-hotel"/></a>
                         </dt>
+                        <dt>
+                            <spring:url value="/adoption/pet/{petId}/new" var="adoptionUrl">
+                                <spring:param name="petId" value="${pet.id}"/>
+                            </spring:url>
+                            <a href="${fn:escapeXml(adoptionUrl)}"><spring:message code="adoption-request"/></a>
+                        </dt>
                     </dl>
                 </td>
                 <td valign="top">
