@@ -62,12 +62,25 @@
                             </spring:url>
                             <a href="${fn:escapeXml(reservaUrl)}"><spring:message code="reserves-hotel"/></a>
                         </dt>
-                        <dt>
-                            <spring:url value="/adoption/pet/{petId}/new" var="adoptionUrl">
-                                <spring:param name="petId" value="${pet.id}"/>
-                            </spring:url>
-                            <a href="${fn:escapeXml(adoptionUrl)}"><spring:message code="adoption-request"/></a>
-                        </dt>
+                        <c:set var="aux" value="0"/>
+                        <c:forEach var="adop" items="${la}">
+                        	<c:choose>
+                        		<c:when test="${adop.pet.id == pet.id}">
+                        			<dt><spring:message code="adoption"/></dt>
+                        			<c:set var="aux" value="1"/>
+                        		</c:when>	
+                        	</c:choose>
+                        </c:forEach>
+                        <c:if test="${aux == 0}" var="l">
+                        	<dt>
+                           	 <spring:url value="/adoption/pet/{petId}/new" var="adoptionUrl">
+                               	 <spring:param name="petId" value="${pet.id}"/>
+                            	</spring:url>
+                           	 <a href="${fn:escapeXml(adoptionUrl)}"><spring:message code="adoption-request"/></a>
+                        	</dt>
+                        </c:if>
+                        
+                       
                     </dl>
                 </td>
                 <td valign="top">
