@@ -16,6 +16,17 @@ public class Donacion extends NamedEntity {
 
 	@ManyToOne(optional = false)
 	private Causa causa;
+	
+	@ManyToOne(optional = false)
+	private User usuario;
+
+	public User getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(User usuario) {
+		this.usuario = usuario;
+	}
 
 	public Double getMoney() {
 		return money;

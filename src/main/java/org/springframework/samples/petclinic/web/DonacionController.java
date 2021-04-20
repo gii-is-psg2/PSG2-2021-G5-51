@@ -1,7 +1,5 @@
 package org.springframework.samples.petclinic.web;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.validation.Valid;
@@ -23,58 +21,50 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/causas")
-public class CausaController {
-
+@RequestMapping("/donaciones")
+public class DonacionController {
+	
 	private CausaService causaService;
 	private DonacionService donacionService;
 	private UserService userService;
 
 	@Autowired
-	public CausaController(CausaService causaService, DonacionService donacionService, UserService userService) {
+	public DonacionController(CausaService causaService, DonacionService donacionService, UserService userService) {
 		this.causaService = causaService;
 		this.donacionService = donacionService;
 		this.userService = userService;
 	}
-
-	@GetMapping("/list")
-	public String listadoCausas(ModelMap model) {
-		List<Causa> causas = causaService.findAll();
-		List<Causa> causasFiltradas = new ArrayList<>();
-		for(Causa c : causas) {
-			if(c.getIsClosed() == null) {  
-				causasFiltradas.add(c);
-			}
-		}
-		model.addAttribute("causas", causasFiltradas);
-		return "causas/causasList";
-	}
-
-	@GetMapping("/new")
-	public String addNewCausa(ModelMap model) {
-		model.addAttribute("causa", new Causa());
-		return "causas/createCausaForm";
-	}
-
-	@PostMapping("/new")
-	public String saveNewCausa(@Valid Causa causa, BindingResult result, ModelMap model) {
-		if (result.hasErrors()) {
-			model.addAttribute("causa", causa);
-			return "causas/createCausaForm";
-		} else {
-			causaService.saveCausa(causa);
-			return listadoCausas(model);
-		}
-	}
-
-	@GetMapping("/{causaId}/details")
-	public String causeDetails(ModelMap model, @PathVariable("causaId") int causaId) {
-
-		model.addAttribute("causa", causaService.findCauseById(causaId));
-		return "/causas/causeDetails";
-
-	}
-
 	
+	
+	
+	@GetMapping("/{causaId}/donate")
+	public String createDonation(ModelMap model, @PathVariable("causaId") int causaId) {
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		User usuario = userService.findUser(username);
+		model.addAttribute("donacion", new Donacion());
+		model.addAttribute("causa", causaService.findCauseById(causaId));
+		model.addAttribute("usuario", usuario);
+		return "/donacion/createDonation";
+
+	}
+
+	@PostMapping("/{causaId}/donate")
+	public String createDonation(@PathVariable("causaId") int causaId, @Valid Donacion donacion, BindingResult result,
+			ModelMap model) {
+		if (result.hasErrors()) {
+			model.addAttribute("donacion", donacion);
+			model.addAttribute("causa", causaService.findCauseById(causaId));
+			return "donacion/createDonation";
+		} else {
+			Causa causa = causaService.findCauseById(causaId);
+			Set<Donacion> donaciones = causa.getDonaciones();
+			donaciones.add(donacion);
+			causa.setDonaciones(donaciones);
+			causa.checkBudget(); 
+        	causaService.saveCausa(causa);
+        	donacionService.saveDonacion(donacion);
+			return "redirect:/causas/list";
+		}
+	}
 
 }

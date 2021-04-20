@@ -1,7 +1,7 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -30,8 +30,8 @@
                     
                     <td><c:out value="${causa.organization}"/></td>
                     
-                    <td><a href="<spring:url value="" htmlEscape="true" />" class="btn  btn-success"><span
-					class="glyphicon glyphicon-plus" aria-hidden="true"></span>Create Donation</a></td>
+                    <td><a href="<spring:url value="{causaId}/details" htmlEscape="true" ><spring:param name="causaId" value="${causa.id}"/></spring:url>" class="btn  btn-success"><span
+					class="glyphicon glyphicon-plus" aria-hidden="true"></span>Cause Details</a></td>
                 </tr>
         </c:forEach>
         </tbody>
