@@ -1,7 +1,7 @@
 <%@ page session="false" trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
@@ -12,10 +12,11 @@
     <table id="causasTable" class="table table-striped">
         <thead>
         <tr>
-            <th><spring:message code="name"/></th>
-            <th><spring:message code="description"/></th>
-            <th><spring:message code="budget_target"/></th>
-            <th><spring:message code="organization"/></th>
+            <th><spring:message code="cause.name"/></th>
+            <th><spring:message code="cause.description"/></th>
+            <th><spring:message code="cause.budget_target"/></th>
+            <th><spring:message code="cause.organization"/></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
@@ -29,6 +30,8 @@
                     
                     <td><c:out value="${causa.organization}"/></td>
                     
+                    <td><a href="<spring:url value="{causaId}/details" htmlEscape="true" ><spring:param name="causaId" value="${causa.id}"/></spring:url>" class="btn  btn-success"><span
+					class="glyphicon glyphicon-plus" aria-hidden="true"></span><spring:message code="cause.details"/></a></td>
                 </tr>
         </c:forEach>
         </tbody>

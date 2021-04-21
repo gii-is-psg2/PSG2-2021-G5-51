@@ -6,24 +6,26 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
-
-<petclinic:layout pageName="causas">
+<petclinic:layout pageName="Donacion">
         <h2>
-            <spring:message code="cause.new"/>
+            <spring:message code="donation.new"/>
         </h2>
-     
-        <form:form modelAttribute="causa" class="form-horizontal" id="add-causa-form">
+      
+        <form:form modelAttribute="donacion" class="form-horizontal" id="add-donacion-form">
             <div class="form-group has-feedback">
-                <petclinic:inputField translate="yes" label="cause.name" name="name"/>
-                <petclinic:textAreaField translate="yes" label="cause.description" name="description"/>
-     			<petclinic:inputNumberField translate="yes" label="cause.budget_target" name="budgetTarget"/>
-     			<petclinic:inputField translate="yes" label="cause.organization" name="organization"/>
+              
+     			<petclinic:inputNumberField translate="yes" label="donation.amount" name="money"/>
+     			<input name="causa" type="hidden" value="${causa.id}"/>
+     			<input name="usuario" type="hidden" value="${usuario.username}"/>
+     			
             	
             </div>
             <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                	<button class="btn btn-default" type="submit"><spring:message code="cause.add"/></button>
+                	<button class="btn btn-default" type="submit">Añadir donación</button>
                 </div>
             </div>
         </form:form>
+        
+        
 </petclinic:layout>
