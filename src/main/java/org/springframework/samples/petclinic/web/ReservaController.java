@@ -44,7 +44,7 @@ public class ReservaController {
 	
 	@InitBinder("reserva")
 	public void initReservasBinder(WebDataBinder dataBinder) {
-		dataBinder.setValidator(new ReservaValidator());
+		dataBinder.setValidator(new ReservaValidator(reservaService));
 	}
 	
 	
