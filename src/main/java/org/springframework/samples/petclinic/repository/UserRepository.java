@@ -16,7 +16,7 @@ public interface UserRepository extends CrudRepository<User, String>{
 	Collection<User> findAll() throws DataAccessException;
 	
 	@Query("SELECT user FROM User user WHERE user.username =:username")
-	User findUser(@Param ("user")String username);
+	User findUser(@Param ("username")String username);
 	
 //	@Transactional
 //    @Modifying
