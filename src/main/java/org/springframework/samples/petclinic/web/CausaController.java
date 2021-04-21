@@ -2,18 +2,14 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Causa;
-import org.springframework.samples.petclinic.model.Donacion;
-import org.springframework.samples.petclinic.model.User;
+
 import org.springframework.samples.petclinic.service.CausaService;
 import org.springframework.samples.petclinic.service.DonacionService;
 import org.springframework.samples.petclinic.service.UserService;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -27,14 +23,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class CausaController {
 
 	private CausaService causaService;
-	private DonacionService donacionService;
-	private UserService userService;
 
 	@Autowired
 	public CausaController(CausaService causaService, DonacionService donacionService, UserService userService) {
 		this.causaService = causaService;
-		this.donacionService = donacionService;
-		this.userService = userService;
 	}
 
 	@GetMapping("/list")
@@ -42,7 +34,7 @@ public class CausaController {
 		List<Causa> causas = causaService.findAll();
 		List<Causa> causasFiltradas = new ArrayList<>();
 		for(Causa c : causas) {
-			if(c.getIsClosed() == null) {  
+			if(c.getIsClosed() == false) {  
 				causasFiltradas.add(c);
 			}
 		}
@@ -63,13 +55,12 @@ public class CausaController {
 			return "causas/createCausaForm";
 		} else {
 			causaService.saveCausa(causa);
-			return listadoCausas(model);
+			return "redirect:/causas/list";
 		}
 	}
 
 	@GetMapping("/{causaId}/details")
 	public String causeDetails(ModelMap model, @PathVariable("causaId") int causaId) {
-
 		model.addAttribute("causa", causaService.findCauseById(causaId));
 		return "/causas/causeDetails";
 

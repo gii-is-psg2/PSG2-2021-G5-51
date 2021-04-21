@@ -6,17 +6,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
+
 <petclinic:layout pageName="causas">
         <h2>
-            <spring:message code="causa.new"/>
+            <spring:message code="cause.new"/>
         </h2>
      
         <form:form modelAttribute="causa" class="form-horizontal" id="add-causa-form">
             <div class="form-group has-feedback">
-                <petclinic:inputField translate="yes" label="name" name="name"/>
-                <petclinic:textAreaField translate="yes" label="description" name="description"/>
-     			<petclinic:inputNumberField translate="yes" label="budget_target" name="budgetTarget"/>
-     			<petclinic:inputField translate="yes" label="organization" name="organization"/>
+                <petclinic:inputField translate="yes" label="cause.name" name="name"/>
+                <petclinic:textAreaField translate="yes" label="cause.description" name="description"/>
+     			<petclinic:inputNumberField translate="yes" label="cause.budget_target" name="budgetTarget"/>
+     			<petclinic:inputField translate="yes" label="cause.organization" name="organization"/>
             	
             </div>
             <div class="form-group">

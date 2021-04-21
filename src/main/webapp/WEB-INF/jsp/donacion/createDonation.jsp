@@ -8,13 +8,13 @@
 
 <petclinic:layout pageName="Donacion">
         <h2>
-            New Donation
+            <spring:message code="donation.new"/>
         </h2>
       
         <form:form modelAttribute="donacion" class="form-horizontal" id="add-donacion-form">
             <div class="form-group has-feedback">
               
-     			<petclinic:inputNumberField label="Amount of money to contribute" name="money"/>
+     			<petclinic:inputNumberField translate="yes" label="donation.amount" name="money"/>
      			<input name="causa" type="hidden" value="${causa.id}"/>
      			<input name="usuario" type="hidden" value="${usuario.username}"/>
      			

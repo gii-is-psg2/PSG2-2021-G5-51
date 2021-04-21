@@ -60,7 +60,6 @@ public class DonacionController {
 			Set<Donacion> donaciones = causa.getDonaciones();
 			donaciones.add(donacion);
 			causa.setDonaciones(donaciones);
-			causa.checkBudget(); 
         	causaService.saveCausa(causa);
         	donacionService.saveDonacion(donacion);
 			return "redirect:/causas/list";

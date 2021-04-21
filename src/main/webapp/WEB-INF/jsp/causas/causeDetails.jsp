@@ -6,24 +6,24 @@
 
 <petclinic:layout pageName="causas">
 
-    <h2>Cause Information</h2>
+    <h2><spring:message code="cause.information"/></h2>
 
 
     <table class="table table-striped">
         <tr>
-            <th>Name</th>
+            <th><spring:message code="cause.name"/></th>
             <td><c:out value="${causa.name}"/></td>
         </tr>
         <tr>
-            <th>Description</th>
+            <th><spring:message code="cause.description"/></th>
             <td><b><c:out value="${causa.description}"/></b></td>
         </tr>
         <tr>
-            <th>BudgetTarget</th>
+            <th><spring:message code="cause.budget_target"/></th>
             <td><c:out value="${causa.budgetTarget}"/></td>
         </tr>
         <tr>
-            <th>Organization</th>
+            <th><spring:message code="cause.organization"/></th>
             <td><c:out value="${causa.organization}"/></td>
         </tr>
         
@@ -34,7 +34,7 @@
     <br/>
     <br/>
     <br/>
-    <h2>Donations</h2>
+    <h2><spring:message code="donations"/></h2>
 
     <table class="table table-striped">
         <c:forEach var="d" items="${causa.donaciones}">
@@ -42,9 +42,9 @@
             <tr>
                 <td valign="top">
                     <dl class="dl-horizontal">
-                        <dt>Name</dt>
+                        <dt><spring:message code="name"/></dt>
                         <dd><c:out value="${d.usuario.username}"/></dd>
-                        <dt>Money</dt>
+                        <dt><spring:message code="money"/></dt>
                         <dd><c:out value="${d.money}"/></dd>
                         
                     </dl>
@@ -68,7 +68,7 @@
 
 				<span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
 
-				add donation</a>
+				<spring:message code="donation.add"/></a>
 
 			</td>
 	
