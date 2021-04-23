@@ -1,5 +1,8 @@
 package org.springframework.samples.petclinic.web;
 
+import java.util.List;
+import java.util.Map;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/adoption")
 public class AdopcionController {
 	
-	
-	private final AdopcionService adopcionService;
-	private final PetService petService;
-	
-	
 	@Autowired
-	public AdopcionController(final AdopcionService adopcionService,final PetService PetService) {
-		this.adopcionService = adopcionService;
-		this.petService = PetService;
-	}
+	private AdopcionService adopcionService;
+	@Autowired
+	private PetService petService;
 	
+	@GetMapping("")
+	public String listAdopciones(ModelMap model) {
+		List<Adopcion> adoptions = adopcionService.findAll();
+		model.put("adoptions", adoptions);
+		return "adopcion/adoptionsList";
+	}
 	
 	
 	@GetMapping("/pet/{petId}/new")
