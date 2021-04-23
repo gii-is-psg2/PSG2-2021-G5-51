@@ -8,19 +8,18 @@
 
 <petclinic:layout pageName="acceptRequest">
         <h2>
-             Confirmación de aceptación de solicitud
+            <spring:message code="request.accept.confirmation"/>
         </h2>
 
         <div>
             <table id="requestsTable" class="table table-striped table-header">
                 <thead>
                 <tr>
-                    <th style="width: 150px;">Full name</th>
-                    <th style="width: 150px;">Address</th>
-                    <th style="width: 150px;">Telephone</th>
-                    <th style="width: 150px;">Date</th>
-                    <th style="width: 150px;">Information</th>
-                    <th style="width: 150px;"></th>
+                    <th style="width: 150px;"><spring:message code="form.fullname"/></th>
+                    <th style="width: 150px;"><spring:message code="form.address"/></th>
+                    <th style="width: 150px;"><spring:message code="form.telephone"/></th>
+                    <th style="width: 150px;"><spring:message code="form.date"/></th>
+                    <th style="width: 150px;"><spring:message code="info"/></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -44,12 +43,12 @@
                 </tbody>
             </table>
         </div>
-     
+
         <form:form modelAttribute="solicitud" class="form-horizontal" id="add-adoption-form">
-             <div class="form-group">
-                <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-default" type="submit">Confirmar</button>
-                </div>
-            </div>
-        </form:form>
+            <div class="form-group">
+               <div class="col-sm-offset-2 col-sm-3"></div>
+                   <button class="btn  btn-success" type="submit"><spring:message code="confirm"/></button>
+               </div>
+           </div>
+       </form:form>
 </petclinic:layout>

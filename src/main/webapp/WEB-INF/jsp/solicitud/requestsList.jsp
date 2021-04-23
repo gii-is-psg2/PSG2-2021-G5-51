@@ -6,17 +6,17 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 
 <petclinic:layout pageName="requests">
-    <h2>Solicitudes</h2>
+    <h2><spring:message code="requests"/></h2>
 
     <table id="requestsTable" class="table table-striped table-header">
         <thead>
         <tr>
-            <th style="width: 150px;">Full name</th>
-            <th style="width: 150px;">Address</th>
-            <th style="width: 150px;">Telephone</th>
-            <th style="width: 150px;">Date</th>
-            <th style="width: 150px;">Information</th>
-            <th style="width: 150px;"></th>
+            <th style="width: 150px;"><spring:message code="form.fullname"/></th>
+            <th style="width: 150px;"><spring:message code="form.address"/></th>
+            <th style="width: 150px;"><spring:message code="form.telephone"/></th>
+            <th style="width: 150px;"><spring:message code="form.date"/></th>
+            <th style="width: 150px;"><spring:message code="info"/></th>
+            <th style="width: 150px;"><spring:message code="options"/></th>
         </tr>
         </thead>
         <tbody>
@@ -38,7 +38,7 @@
                     <c:out value="${request.info}"/>
                 </td>
                 <td>
-                    <a class="btn btn-default" href='<spring:url value="/adoption/${request.adoption.id}/requests/${request.id}/accept" htmlEscape="true"/>'>Aceptar</a>
+                    <a href='<spring:url value="/adoption/${request.adoption.id}/requests/${request.id}/accept" htmlEscape="true"/>'><spring:message code="accept"/></a>
                 </td>
             </tr>
         </c:forEach>

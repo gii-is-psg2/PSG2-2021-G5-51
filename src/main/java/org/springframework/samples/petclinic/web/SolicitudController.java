@@ -34,14 +34,13 @@ public class SolicitudController {
 	private AdopcionService adopcionService;
 	@Autowired
 	private OwnerService ownerService;
-	@Autowired
-	private PetService petService;
 	
 	@GetMapping("/{adoptionId}/requests")
 	public String listSolicitudes(@PathVariable("adoptionId") final Integer adoptionId, ModelMap model) {
 		List<Solicitud> requests = solicitudService.findAll();
 		System.out.println(requests.toString());
 		model.put("requests", requests);
+		model.put("username", SecurityContextHolder.getContext().getAuthentication().getName());
 		return "solicitud/requestsList";
 	}
 
@@ -64,7 +63,7 @@ public class SolicitudController {
         } else {
 			String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			solicitud.setRequestDate(LocalDate.now());
-			solicitud.setNewOwner(ownerService.findOwnerByUsername("owner5"));
+			solicitud.setNewOwner(ownerService.findOwnerByUsername(username));
 			solicitud.setAdoption(this.adopcionService.findAdoptionById(adoptionId).get());
         	this.solicitudService.saveSolicitud(solicitud);
         	return listSolicitudes(adoptionId, model);

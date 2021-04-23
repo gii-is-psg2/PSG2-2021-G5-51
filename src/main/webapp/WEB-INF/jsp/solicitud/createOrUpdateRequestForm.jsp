@@ -8,17 +8,17 @@
 
 <petclinic:layout pageName="newAdoptionRequest">
         <h2>
-             Nueva Solicitud de Adopción
+            <spring:message code="request.new"/>
         </h2>
      
         <form:form modelAttribute="solicitud" class="form-horizontal" id="add-adoption-form">
             <div class="form-group has-feedback">
-                <petclinic:textAreaField label="info" name="info"/>
+                <petclinic:textAreaField translate="yes" label="info" name="info"/>
             	
             </div>
              <div class="form-group">
                 <div class="col-sm-offset-2 col-sm-10">
-                    <button class="btn btn-default" type="submit">Añadir</button>
+                    <button class="btn btn-default" type="submit"><spring:message code="request.add"/></button>
                 </div>
             </div>
         </form:form>

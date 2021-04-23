@@ -8,7 +8,7 @@
 
 <petclinic:layout pageName="Crear Editar Adopcion">
         <h2>
-             <c:if test="${adopcion['new']}"><spring:message code="new-m"/> </c:if> <spring:message code="adoption"/>
+             <c:if test="${adopcion['new']}"><spring:message code="new-f"/> </c:if> <spring:message code="adoption"/>
         </h2>
      
         <form:form modelAttribute="adopcion" class="form-horizontal" id="add-adoption-form">
