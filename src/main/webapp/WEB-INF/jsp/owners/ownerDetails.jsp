@@ -78,12 +78,14 @@
                         	</c:choose>
                         </c:forEach>
                         <c:if test="${aux == 0}" var="l">
-                        	<dt>
-                           	 <spring:url value="/adoption/pet/{petId}/new" var="adoptionUrl">
-                               	 <spring:param name="petId" value="${pet.id}"/>
-                            	</spring:url>
-                           	 <a href="${fn:escapeXml(adoptionUrl)}"><spring:message code="adoption-request"/></a>
-                        	</dt>
+                        	<c:if test="${username == owner.user.username }">
+                        		<dt>
+                           	 	<spring:url value="/adoption/pet/{petId}/new" var="adoptionUrl">
+                              	 	 <spring:param name="petId" value="${pet.id}"/>
+                            		</spring:url>
+                           		 <a href="${fn:escapeXml(adoptionUrl)}"><spring:message code="adoption-request"/></a>
+                        		</dt>
+                        	</c:if>
                         </c:if>
                         
                        

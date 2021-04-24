@@ -34,7 +34,7 @@ public class SolicitudController {
 	
 	@GetMapping("/{adoptionId}/requests")
 	public String listSolicitudes(@PathVariable("adoptionId") final Integer adoptionId, final ModelMap model) {
-		final List<Solicitud> requests = this.solicitudService.findAll();
+		final List<Solicitud> requests = this.solicitudService.findByAdoptionId(adoptionId);
 		System.out.println(requests.toString());
 		model.put("requests", requests);
 		model.put("username", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -63,7 +63,10 @@ public class SolicitudController {
 			solicitud.setNewOwner(this.ownerService.findOwnerByUsername(username));
 			solicitud.setAdoption(this.adopcionService.findAdoptionById(adoptionId).get());
         	this.solicitudService.saveSolicitud(solicitud);
-        	return this.listSolicitudes(adoptionId, model);
+        	
+        	
+        	
+        	return "redirect:/adoption";
         }
     }
 

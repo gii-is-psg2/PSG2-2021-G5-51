@@ -39,7 +39,7 @@
                     <c:out value="${request.info}"/>
                 </td>
                 <c:choose>
-                	<c:when test="${username == request.newOwner.user.username}">
+                	<c:when test="${username == request.adoption.pet.owner.user.username}">
                     	<td>
                     		<a href='<spring:url value="/adoption/${request.adoption.id}/requests/${request.id}/accept" htmlEscape="true"/>'><spring:message code="accept"/></a>
                 		</td>
