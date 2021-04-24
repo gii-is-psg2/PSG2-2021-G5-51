@@ -6,16 +6,13 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.samples.petclinic.model.Solicitud;
-import org.springframework.samples.petclinic.model.User;
-import org.springframework.samples.petclinic.model.Adopcion;
 import org.springframework.samples.petclinic.model.Owner;
 import org.springframework.samples.petclinic.model.Pet;
-import org.springframework.samples.petclinic.service.SolicitudService;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.samples.petclinic.model.Solicitud;
 import org.springframework.samples.petclinic.service.AdopcionService;
 import org.springframework.samples.petclinic.service.OwnerService;
-import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.SolicitudService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -36,8 +33,8 @@ public class SolicitudController {
 	private OwnerService ownerService;
 	
 	@GetMapping("/{adoptionId}/requests")
-	public String listSolicitudes(@PathVariable("adoptionId") final Integer adoptionId, ModelMap model) {
-		List<Solicitud> requests = solicitudService.findAll();
+	public String listSolicitudes(@PathVariable("adoptionId") final Integer adoptionId, final ModelMap model) {
+		final List<Solicitud> requests = this.solicitudService.findAll();
 		System.out.println(requests.toString());
 		model.put("requests", requests);
 		model.put("username", SecurityContextHolder.getContext().getAuthentication().getName());
@@ -46,7 +43,7 @@ public class SolicitudController {
 
 	@GetMapping("/{adoptionId}/requests/new")
     public String addNewSolicitud(@PathVariable("adoptionId") final Integer adoptionId,final ModelMap model) {
-		Solicitud solicitud = new Solicitud();
+		final Solicitud solicitud = new Solicitud();
 		model.put("solicitud", solicitud);
         
         return "solicitud/createOrUpdateRequestForm";
@@ -61,18 +58,18 @@ public class SolicitudController {
 			model.addAttribute("message", "There was an error in the form: " + result.getAllErrors().toString());
         	return "solicitud/createOrUpdateRequestForm";
         } else {
-			String username = SecurityContextHolder.getContext().getAuthentication().getName();
+			final String username = SecurityContextHolder.getContext().getAuthentication().getName();
 			solicitud.setRequestDate(LocalDate.now());
-			solicitud.setNewOwner(ownerService.findOwnerByUsername(username));
+			solicitud.setNewOwner(this.ownerService.findOwnerByUsername(username));
 			solicitud.setAdoption(this.adopcionService.findAdoptionById(adoptionId).get());
         	this.solicitudService.saveSolicitud(solicitud);
-        	return listSolicitudes(adoptionId, model);
+        	return this.listSolicitudes(adoptionId, model);
         }
     }
 
 	@GetMapping("/{adoptionId}/requests/{requestId}/accept")
     public String acceptSolicitud(@PathVariable("adoptionId") final Integer adoptionId, @PathVariable("adoptionId") final Integer requestId, final ModelMap model) {
-		Solicitud solicitud = solicitudService.findBySolicitudId(requestId).get();
+		final Solicitud solicitud = this.solicitudService.findBySolicitudId(requestId).get();
 		model.put("request", solicitud);
         
         return "solicitud/acceptRequest";
@@ -81,23 +78,34 @@ public class SolicitudController {
 	
 	@PostMapping("/{adoptionId}/requests/{requestId}/accept")
     public String confirmAcceptSolicitud(@PathVariable("adoptionId") final Integer adoptionId, @PathVariable("adoptionId") final Integer requestId, final ModelMap model) {
-		Solicitud solicitud = solicitudService.findBySolicitudId(requestId).get();
+		final Solicitud solicitud = this.solicitudService.findBySolicitudId(requestId).get();
 		model.put("request", solicitud);
 
-		Owner originalOwner = solicitud.getAdoption().getPet().getOwner();
-		Pet pet = solicitud.getAdoption().getPet();
+		final Owner originalOwner = solicitud.getAdoption().getPet().getOwner();
+		final Pet pet = solicitud.getAdoption().getPet();
 
 		originalOwner.removePet(pet);
 		pet.setOwner(solicitud.getNewOwner());
 
-		ownerService.saveOwner(originalOwner);
-		ownerService.saveOwner(solicitud.getNewOwner());
+		this.ownerService.saveOwner(originalOwner);
+		this.ownerService.saveOwner(solicitud.getNewOwner());
 
-		adopcionService.deleteAdopcionByIdAndSolicitudes(adoptionId);
+		this.adopcionService.deleteAdopcionByIdAndSolicitudes(adoptionId);
 
 		model.addAttribute("message", "The adoption request was accepted succesfully.");
         
-        return listSolicitudes(adoptionId, model);
+        return this.listSolicitudes(adoptionId, model);
+    }
+	
+	@GetMapping("/{adoptionId}/delete/owner/{ownerId}")
+    public String deleteSolicitud(@PathVariable("adoptionId") final Integer adoptionId,@PathVariable("ownerId") final Integer ownerId, final ModelMap model) {
+		
+
+		this.adopcionService.deleteAdopcionByIdAndSolicitudes(adoptionId);
+
+		model.addAttribute("message", "The adoption request was deleted succesfully.");
+        
+        return "redirect:/owners/{ownerId}";
     }
 
 }

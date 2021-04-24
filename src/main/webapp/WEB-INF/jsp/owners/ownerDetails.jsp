@@ -62,11 +62,17 @@
                             </spring:url>
                             <a href="${fn:escapeXml(reservaUrl)}"><spring:message code="reserves-hotel"/></a>
                         </dt>
+                        <dd></dd>
                         <c:set var="aux" value="0"/>
                         <c:forEach var="adop" items="${la}">
                         	<c:choose>
                         		<c:when test="${adop.pet.id == pet.id}">
                         			<dt><spring:message code="adoption"/></dt>
+                        			<dd>
+                        			<a href='<spring:url value="/adoption/${adop.id}/requests" htmlEscape="true"/>'><spring:message code="request.view"/></a>
+                        			<br/>
+                        			<a href='<spring:url value="/adoption/${adop.id}/delete/owner/${owner.id}" htmlEscape="true"/>'><spring:message code="adoption.delete"/></a>
+                        			</dd>
                         			<c:set var="aux" value="1"/>
                         		</c:when>	
                         	</c:choose>

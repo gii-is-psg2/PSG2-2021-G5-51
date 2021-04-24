@@ -76,7 +76,7 @@ $(document).ready(function() {
 				</petclinic:menuItem>
 
 				<petclinic:menuItem active="${name eq 'adoption'}" url="/adoption"
-					title="trigger a RuntimeException to see how it is handled">
+					title="adoption">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span><spring:message code="menu.adoption"/></span>
 				</petclinic:menuItem>
