@@ -8,7 +8,6 @@ import org.springframework.samples.petclinic.model.Adopcion;
 import org.springframework.samples.petclinic.model.Solicitud;
 import org.springframework.samples.petclinic.repository.AdopcionRepository;
 import org.springframework.samples.petclinic.repository.SolicitudRepository;
-
 import org.springframework.stereotype.Service;
 
 @Service
@@ -31,7 +30,6 @@ public class AdopcionService {
 		return this.AdopcionRepository.findAll();
 	}
 
-
 	public void saveAdopcion(final Adopcion Adopcion) {
 		this.AdopcionRepository.save(Adopcion);
 	}
@@ -41,10 +39,10 @@ public class AdopcionService {
 	}
 
 	public void deleteAdopcionByIdAndSolicitudes(final Integer id) {
-		List<Solicitud> solicitudes = SolicitudRepository.findByAdoptionId(id);
+		final List<Solicitud> solicitudes = this.SolicitudRepository.findByAdoptionId(id);
 		if (!solicitudes.isEmpty()) {
-			for (Solicitud solicitud: solicitudes) {
-				SolicitudRepository.deleteById(solicitud.getId());
+			for (final Solicitud solicitud: solicitudes) {
+				this.SolicitudRepository.deleteById(solicitud.getId());
 			}
 		}
 		this.deleteByAdopcionId(id);

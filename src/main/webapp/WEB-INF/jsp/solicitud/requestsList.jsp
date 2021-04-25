@@ -16,7 +16,8 @@
             <th style="width: 150px;"><spring:message code="form.telephone"/></th>
             <th style="width: 150px;"><spring:message code="form.date"/></th>
             <th style="width: 150px;"><spring:message code="info"/></th>
-            <th style="width: 150px;"><spring:message code="options"/></th>
+			<th style="width: 150px;"><spring:message code="options"/></th>
+            
         </tr>
         </thead>
         <tbody>
@@ -37,9 +38,16 @@
                 <td>
                     <c:out value="${request.info}"/>
                 </td>
-                <td>
-                    <a href='<spring:url value="/adoption/${request.adoption.id}/requests/${request.id}/accept" htmlEscape="true"/>'><spring:message code="accept"/></a>
-                </td>
+                <c:choose>
+                	<c:when test="${username == request.adoption.pet.owner.user.username}">
+                    	<td>
+                    		<a href='<spring:url value="/adoption/${request.adoption.id}/requests/${request.id}/accept" htmlEscape="true"/>'><spring:message code="accept"/></a>
+                		</td>
+                    </c:when>
+                    
+                </c:choose>
+                
+                
             </tr>
         </c:forEach>
         </tbody>

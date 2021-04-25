@@ -29,6 +29,7 @@ import org.springframework.samples.petclinic.service.AdopcionService;
 import org.springframework.samples.petclinic.service.AuthoritiesService;
 import org.springframework.samples.petclinic.service.OwnerService;
 import org.springframework.samples.petclinic.service.UserService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -149,6 +150,8 @@ public class OwnerController {
 		mav.addObject(this.ownerService.findOwnerById(ownerId));
 		final List<Adopcion> la = this.adopcionService.findAll();
 		mav.addObject("la", la);
+		final String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		mav.addObject("username", username);
 		return mav;
 	}
 	

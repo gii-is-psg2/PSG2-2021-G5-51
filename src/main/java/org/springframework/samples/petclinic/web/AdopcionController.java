@@ -1,15 +1,18 @@
 package org.springframework.samples.petclinic.web;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Adopcion;
 import org.springframework.samples.petclinic.model.Pet;
+import org.springframework.samples.petclinic.model.Solicitud;
 import org.springframework.samples.petclinic.service.AdopcionService;
 import org.springframework.samples.petclinic.service.PetService;
+import org.springframework.samples.petclinic.service.SolicitudService;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -26,11 +29,18 @@ public class AdopcionController {
 	private AdopcionService adopcionService;
 	@Autowired
 	private PetService petService;
+	@Autowired
+	private SolicitudService solicitudService;
 	
 	@GetMapping("")
-	public String listAdopciones(ModelMap model) {
-		List<Adopcion> adoptions = adopcionService.findAll();
+	public String listAdopciones(final ModelMap model) {
+		final List<Adopcion> adoptions = this.adopcionService.findAll();
 		model.put("adoptions", adoptions);
+		final String username =  SecurityContextHolder.getContext().getAuthentication().getName();
+		model.put("username", username);
+		final List<Solicitud> l = this.solicitudService.findAll();
+		final List<Solicitud> listaSolicitudes = l.stream().filter(x->x.getNewOwner().getUser().getUsername()==username).collect(Collectors.toList());
+		model.put("listaSolicitudes", listaSolicitudes);
 		return "adopcion/adoptionsList";
 	}
 	
