@@ -1,7 +1,11 @@
 package org.springframework.samples.petclinic.model;
 
+
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
@@ -22,6 +26,33 @@ public class Causa extends NamedEntity {
 	
 	@NotEmpty
 	private String organization;
+	
+	@OneToMany(mappedBy= "causa")
+	private Set<Donacion> donaciones;
+	
+
+	/* Para comprobar si la causa está cerrada, debo crear un atributo
+	 * derivado que compruebe si la suma de las cantidades de las donaciones
+	 * es igual al budgetTarget
+	 */
+	
+	
+	public Boolean getIsClosed() {
+		Double contador=0.;
+		for (Donacion d: donaciones) {
+			contador+=d.getMoney();
+		}
+		
+		return (contador >= budgetTarget);
+	}
+
+	public Set<Donacion> getDonaciones() {
+		return donaciones;
+	}
+
+	public void setDonaciones(Set<Donacion> donaciones) {
+		this.donaciones = donaciones;
+	}
 
 	public String getDescription() {
 		return description;
@@ -47,10 +78,7 @@ public class Causa extends NamedEntity {
 		this.organization = organization;
 	}
 	
-	/* Para comprobar si la causa está cerrada, debo crear un atributo
-	 * derivado que compruebe si la suma de las cantidades de las donaciones
-	 * es igual al budgetTarget
-	 */
+
 
 	
 }

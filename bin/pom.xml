@@ -3,16 +3,16 @@
          xmlns="http://maven.apache.org/POM/4.0.0"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>org.springframework.samples</groupId>
-    <artifactId>spring-petclinic</artifactId>
-    <version>2.2.0.BUILD-SNAPSHOT</version>
+    <groupId>es.us.psg2</groupId>
+    <artifactId>spring-petclinic.psg2.2021-G5-51</artifactId>
+    <version>1.0.0</version>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.2.4.RELEASE</version>
     </parent>
-    <name>petclinic</name>
+    <name>PSG2-2021-G5-51 Petclinic</name>
 
     <properties>
 
@@ -256,6 +256,7 @@
     </licenses>
 
 	<developers>
+
 	    <developer>
 	      <id>fraborcar</id>
 	      <name>Francisco José Borrego Caro</name>
@@ -265,6 +266,58 @@
 	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
 	      <roles>
 	        <role>scrum master</role>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
+
+	    <developer>
+	      <id>frabotrom</id>
+	      <name>Francisco Botello Romero</name>
+	      <email>frabotrom@alum.us.es</email>
+	      <url>https://github.com/frabotrom</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
+        
+        <developer>
+	      <id>RoyalFireStorm</id>
+	      <name>Álvaro Sánchez González</name>
+	      <email>alsago68@gmail.com</email>
+	      <url>https://github.com/RoyalFireStorm</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
+	    
+	    <developer>
+	      <id>frabelrab</id>
+	      <name>Francisco Javier Beltrán Rabadán</name>
+	      <email>fjbelrab@gmail.com</email>
+	      <url>https://github.com/Franbr31</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
+	        <role>developer</role>
+	      </roles>
+	      <timezone>Europe/Madrid</timezone>
+	    </developer>
+
+        <developer>
+	      <id>migmolrub</id>
+	      <name>Miguel Molina Rubio</name>
+	      <email>migmolrub@alum.us.es</email>
+	      <url>https://github.com/migmolrub</url>
+	      <organization>Proceso Software y Gestión II</organization>
+	      <organizationUrl>https://github.com/gii-is-psg2</organizationUrl>
+	      <roles>
 	        <role>developer</role>
 	      </roles>
 	      <timezone>Europe/Madrid</timezone>
