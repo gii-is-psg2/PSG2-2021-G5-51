@@ -69,17 +69,23 @@ $(document).ready(function() {
 					<span><spring:message code="menu.vets"/></span>
 				</petclinic:menuItem>
 				
-				<petclinic:menuItem active="${name eq 'vets'}" url="/causas/list"
+				<petclinic:menuItem active="${name eq 'causes'}" url="/causas/list"
 					title="causes">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="menu.causes"/></span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'error'}" url="/oups"
+				<petclinic:menuItem active="${name eq 'adoption'}" url="/adoption"
+					title="adoption">
+					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span><spring:message code="menu.adoption"/></span>
+				</petclinic:menuItem>
+
+				<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span><spring:message code="menu.error"/></span>
-				</petclinic:menuItem>
+				</petclinic:menuItem> --!>
 
 			</ul>
 
