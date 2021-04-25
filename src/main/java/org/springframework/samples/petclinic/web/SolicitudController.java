@@ -55,7 +55,7 @@ public class SolicitudController {
 
         if (result.hasErrors()) {
         	model.addAttribute("solicitud", solicitud);
-			model.addAttribute("message", "There was an error in the form: " + result.getAllErrors().toString());
+			model.addAttribute("message", "There was an error in the form. Try again");
         	return "solicitud/createOrUpdateRequestForm";
         } else {
 			final String username = SecurityContextHolder.getContext().getAuthentication().getName();
