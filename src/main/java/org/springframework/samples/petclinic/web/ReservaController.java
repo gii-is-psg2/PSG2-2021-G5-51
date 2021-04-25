@@ -9,7 +9,10 @@ import org.springframework.samples.petclinic.service.ReservaService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,6 +33,19 @@ public class ReservaController {
 	
 	@Autowired
 	private PetService petService;
+	
+	@ModelAttribute("reserva")
+	public Reserva loadPetWithVisit(@PathVariable("petId") int petId) {
+		Reserva reserva = new Reserva();
+		Pet pet = petService.findPetById(petId);		
+		reserva.setPet(pet);
+		return reserva;
+	}
+	
+	@InitBinder("reserva")
+	public void initReservasBinder(WebDataBinder dataBinder) {
+		dataBinder.setValidator(new ReservaValidator(reservaService));
+	}
 	
 	
 	@GetMapping(value = "/reservas")
@@ -63,14 +79,14 @@ public class ReservaController {
 
 	@GetMapping("/{ownerId}/pets/{petId}/reservas/new")
     public String addNewReserva(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, ModelMap model) {
-        model.addAttribute("reserva",new Reserva());
+        model.addAttribute("reserva", new Reserva());
 		model.addAttribute("pet", petService.findPetById(petId));
         return RESERVAS_FORM;
     }
 
 	@PostMapping("/{ownerId}/pets/{petId}/reservas/new")
-    public String saveNewReserva(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, @Valid Reserva reserva, BindingResult binding,ModelMap model) {
-        if(binding.hasErrors()) {
+    public String saveNewReserva(@PathVariable("ownerId") int ownerId, @PathVariable("petId") int petId, @Valid Reserva reserva, BindingResult binding, ModelMap model) {
+		if(binding.hasErrors()) {
 			model.addAttribute("pet", petService.findPetById(petId));
             return RESERVAS_FORM;
         }else {
