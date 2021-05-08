@@ -80,6 +80,12 @@ $(document).ready(function() {
 					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
 					<span><spring:message code="menu.adoption"/></span>
 				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'health'}" url="/manage/health"
+					title="health">
+					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span><spring:message code="menu.health"/></span>
+				</petclinic:menuItem>
 
 				<!-- <petclinic:menuItem active="${name eq 'error'}" url="/oups"
 					title="trigger a RuntimeException to see how it is handled">
