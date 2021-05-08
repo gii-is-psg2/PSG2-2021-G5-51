@@ -5,7 +5,6 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
-
 <petclinic:layout pageName="causas">
     <h2><spring:message code="causas.list"/></h2>
 
