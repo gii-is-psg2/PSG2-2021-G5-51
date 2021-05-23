@@ -77,8 +77,14 @@ $(document).ready(function() {
 
 				<petclinic:menuItem active="${name eq 'adoption'}" url="/adoption"
 					title="adoption">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="menu.adoption"/></span>
+				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'about'}" url="/about"
+					title="about">
+					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+					<span><spring:message code="menu.about"/></span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'health'}" url="/manage/health"
