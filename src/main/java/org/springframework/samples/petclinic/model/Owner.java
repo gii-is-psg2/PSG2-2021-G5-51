@@ -30,6 +30,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
@@ -59,7 +60,13 @@ public class Owner extends Person {
 	@NotEmpty
 	@Digits(fraction = 0, integer = 10)
 	private String telephone;
+	
+	@Column(name = "email", unique = true)
+	@NotEmpty
+	@Pattern(regexp = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$")
+	private String email;
 
+	
 	@OneToMany(cascade = CascadeType.REFRESH, mappedBy = "owner")
 	private Set<Pet> pets;
 	
@@ -99,6 +106,14 @@ public class Owner extends Person {
 
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	protected Set<Pet> getPetsInternal() {
