@@ -17,13 +17,16 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#locales").change(function () {
-        var selectedOption = $('#locales').val();
-        if (selectedOption != ''){
-            window.location.replace('?lang=' + selectedOption);
-			localStorage.setItem("lang", selectedOption);
-        }
+	document.getElementById("locales").addEventListener("click",function () {
+            window.location.replace('?lang=es');
+			localStorage.setItem("lang", es);
+        
     });
+	document.getElementById("localen").addEventListener("click",function () {
+        window.location.replace('?lang=en');
+		localStorage.setItem("lang", en);
+    
+});
 	if (localStorage.getItem("lang") != null)
 		document.getElementById('locales').value=localStorage.getItem("lang");
 });
@@ -32,10 +35,10 @@ $(document).ready(function() {
 
 <nav class="navbar navbar-default" role="navigation">
 	<span><spring:message code="lang.change"/></span>:
-	<select id="locales">
-		<option value="en" selected><spring:message code="lang.en"/></option>
-		<option value="es"><spring:message code="lang.es"/></option>
-	</select>
+	
+	
+	<button type="button" value="es" id="locales"><spring:message code="lang.es"/></button>
+	<button type="button" value="en" id="localen"><spring:message code="lang.en"/></button>
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand"
