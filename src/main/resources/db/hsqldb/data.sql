@@ -45,13 +45,13 @@ INSERT INTO vet_specialties VALUES (3, 3);
 INSERT INTO vet_specialties VALUES (4, 2);
 INSERT INTO vet_specialties VALUES (5, 1);
 
-INSERT INTO types VALUES (1, 'cat');
-INSERT INTO types VALUES (2, 'dog');
-INSERT INTO types VALUES (3, 'lizard');
-INSERT INTO types VALUES (4, 'snake');
-INSERT INTO types VALUES (5, 'bird');
+INSERT INTO types VALUES (1, 'gato');
+INSERT INTO types VALUES (2, 'perro');
+INSERT INTO types VALUES (3, 'lagarto');
+INSERT INTO types VALUES (4, 'serpiente');
+INSERT INTO types VALUES (5, 'pajaro');
 INSERT INTO types VALUES (6, 'hamster');
-INSERT INTO types VALUES (7, 'fish');
+INSERT INTO types VALUES (7, 'pez');
 
 INSERT INTO owners VALUES (1, 'George', 'Franklin', '110 W. Liberty St.', 'Madison','prueba@gmail.com', '6085551023','owner1');
 INSERT INTO owners VALUES (2, 'Betty', 'Davis', '638 Cardinal Ave.', 'Sun Prairie','prueba2@gmail.com', '6085551749', 'owner2');
