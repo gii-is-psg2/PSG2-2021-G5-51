@@ -42,6 +42,10 @@ public class ReservaValidator implements Validator {
 				}
 			}
 		}
+		
+		if(reserva.getStartDate().isBefore(LocalDate.now())) {
+			errors.rejectValue("startDate", "Fecha inicio anterior a la fecha actual", "La fecha de inicio de la reserva debe ser posterior a la actual");
+		}
 	}
 
 	private static boolean isThereOverlap(LocalDate b1s, LocalDate b1f, LocalDate b2s, LocalDate b2f) {
