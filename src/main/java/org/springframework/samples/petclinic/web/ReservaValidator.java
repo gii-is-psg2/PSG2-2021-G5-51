@@ -27,7 +27,8 @@ public class ReservaValidator implements Validator {
 		}
 		
 		if (reserva.getFinishDate()==null) {
-			errors.rejectValue("finishDate", "Requerido", "Campo Requerido");	
+			errors.rejectValue("finishDate", "Requerido", "Campo Requerido");
+			return;
 		}
 		
 		if (reserva.getFinishDate()!=null && reserva.getStartDate()!=null && reserva.getStartDate().isAfter(reserva.getFinishDate())) {
@@ -41,6 +42,10 @@ public class ReservaValidator implements Validator {
 							"Las fechas se superponen con las de una reserva existente" );
 				}
 			}
+		}
+		
+		if(reserva.getStartDate().isBefore(LocalDate.now())) {
+			errors.rejectValue("startDate", "Fecha inicio anterior a la fecha actual", "La fecha de inicio de la reserva debe ser posterior a la actual");
 		}
 	}
 
