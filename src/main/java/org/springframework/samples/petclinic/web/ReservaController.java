@@ -118,7 +118,7 @@ public class ReservaController {
             model.addAttribute("message","There was an error, the reserve does not exist.");
         }
         if(binding.hasErrors()){
-			model.put("reserva", reserva.get());
+			model.put("reserva", modifiedReserva);
             return RESERVAS_FORM;
         }
         else{

@@ -27,7 +27,8 @@ public class ReservaValidator implements Validator {
 		}
 		
 		if (reserva.getFinishDate()==null) {
-			errors.rejectValue("finishDate", "Requerido", "Campo Requerido");	
+			errors.rejectValue("finishDate", "Requerido", "Campo Requerido");
+			return;
 		}
 		
 		if (reserva.getFinishDate()!=null && reserva.getStartDate()!=null && reserva.getStartDate().isAfter(reserva.getFinishDate())) {
