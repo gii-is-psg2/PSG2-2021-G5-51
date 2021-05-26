@@ -37,9 +37,11 @@ public class ReservaValidator implements Validator {
 
 		if(!lsReservas.isEmpty()) {
 			for (Reserva r:lsReservas) {
-				if (isThereOverlap(reserva.getStartDate(),reserva.getFinishDate(), r.getStartDate(), r.getFinishDate())) {
-					errors.rejectValue("startDate", "Las fechas se superponen con las de una reserva existente", 
-							"Las fechas se superponen con las de una reserva existente" );
+				if (isThereOverlap(reserva.getStartDate(),reserva.getFinishDate(), r.getStartDate(), r.getFinishDate())){
+					if (reserva.getId() != r.getId()) {
+						errors.rejectValue("startDate", "Las fechas se superponen con las de una reserva existente", 
+								"Las fechas se superponen con las de una reserva existente");
+					}
 				}
 			}
 		}
