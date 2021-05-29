@@ -38,6 +38,7 @@
         </table>
         <form:form modelAttribute="reserva" class="form-horizontal" id="add-reserva-form">
             <div class="form-group has-feedback">
+                <input type="hidden" name="id" value="${reserva.id}">
                 <petclinic:inputField translate="yes" label="startdate" name="startDate"/>
                 <petclinic:inputField translate="yes" label="finishdate" name="finishDate"/>
             </div>

@@ -13,8 +13,10 @@
 			<tr>
 				<th><spring:message code="name"/></th>
 				<th><spring:message code="specialties"/></th>
+				<c:if test="${isAdmin eq true}">
 				<th><spring:message code="delete"/></th>
             	<th><spring:message code="edit"/></th>
+            	</c:if>
 			</tr>
 		</thead>
 		<tbody>
@@ -24,7 +26,7 @@
 					<td><c:forEach var="specialty" items="${vet.specialties}">
 							<c:out value="${specialty.name} " />
 						</c:forEach> <c:if test="${vet.nrOfSpecialties == 0}"><spring:message code="none"/></c:if></td>
-					
+					<c:if test="${isAdmin eq true}">
                 	<td>
 	                    <a href="vets/${vet.id}/delete"><span class="glyphicon glyphicon-trash" aria-hidden="true"></span></a>
                 	</td>
@@ -33,12 +35,12 @@
 					<td><a href="/vets/${vet.id}/edit"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
                 		</a>
                 	</td>
-                		
+                	</c:if>	
 				</tr>
 			</c:forEach>
 		</tbody>
 	</table>
-
+	<c:if test="${isAdmin eq true}">
 	<table class="table-buttons">
 		<tr>
 			<!-- <td><a href="<spring:url value="/vets.xml" htmlEscape="true" />">View
@@ -47,5 +49,6 @@
 					class="glyphicon glyphicon-plus" aria-hidden="true"></span><spring:message code="vet.add"/></a></td>
 		</tr>
 	</table>
+	</c:if>	
 
 </petclinic:layout>

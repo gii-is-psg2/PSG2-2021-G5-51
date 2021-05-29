@@ -94,27 +94,37 @@ public class PetController {
 
 	@GetMapping(value = "/pets/new")
 	public String initCreationForm(Owner owner, ModelMap model) {
-		Pet pet = new Pet();
-		owner.addPet(pet);
-		model.put("pet", pet);
-		return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+		if(this.ownerController.isAdmin() || this.ownerController.accedeASuOwner(owner.getId())) {
+			Pet pet = new Pet();
+			owner.addPet(pet);
+			model.put("pet", pet);
+			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+		} else {
+			return "exception";
+		}
+
 	}
 
 	@PostMapping(value = "/pets/new")
 	public String processCreationForm(Owner owner, @Valid Pet pet, BindingResult result, ModelMap model) {		
-		if (result.hasErrors()) {
-			model.put("pet", pet);
-			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-                    try{
-                    	owner.addPet(pet);
-                    	this.petService.savePet(pet);
-                    }catch(DuplicatedPetNameException ex){
-                        result.rejectValue("name", "duplicate", "already exists");
-                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-                    }
-                    return "redirect:/owners/{ownerId}";
+		if(this.ownerController.isAdmin() || this.ownerController.accedeASuOwner(owner.getId())) {
+		
+			if (result.hasErrors()) {
+				model.put("pet", pet);
+				return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+			}
+			else {
+	                    try{
+	                    	owner.addPet(pet);
+	                    	this.petService.savePet(pet);
+	                    }catch(DuplicatedPetNameException ex){
+	                        result.rejectValue("name", "duplicate", "already exists");
+	                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+	                    }
+	                    return "redirect:/owners/{ownerId}";
+			}
+		} else {
+			return "exception";
 		}
 	}
 
@@ -137,28 +147,38 @@ public class PetController {
      */
         @PostMapping(value = "/pets/{petId}/edit")
 	public String processUpdateForm(@Valid Pet pet, BindingResult result, Owner owner,@PathVariable("petId") int petId, ModelMap model) {
-		if (result.hasErrors()) {
-			model.put("pet", pet);
-			return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-		}
-		else {
-                        Pet petToUpdate=this.petService.findPetById(petId);
-			BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
-                    try {                    
-                        this.petService.savePet(petToUpdate);                    
-                    } catch (DuplicatedPetNameException ex) {
-                        result.rejectValue("name", "duplicate", "already exists");
-                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
-                    }
-			return "redirect:/owners/{ownerId}";
-		}
+        if(this.ownerController.isAdmin() || this.ownerController.accedeASuOwner(owner.getId())) {
+        	
+	        if (result.hasErrors()) {
+				model.put("pet", pet);
+				return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+			}
+			else {
+	                        Pet petToUpdate=this.petService.findPetById(petId);
+				BeanUtils.copyProperties(pet, petToUpdate, "id","owner","visits");                                                                                  
+	                    try {                    
+	                        this.petService.savePet(petToUpdate);                    
+	                    } catch (DuplicatedPetNameException ex) {
+	                        result.rejectValue("name", "duplicate", "already exists");
+	                        return VIEWS_PETS_CREATE_OR_UPDATE_FORM;
+	                    }
+				return "redirect:/owners/{ownerId}";
+			}
+        } else {
+        	return "exception";
+        }
+        
 	}
         
 	@GetMapping(value = "/pets/{petId}/delete")
 	public String delete(@PathVariable("petId") final int petId, @PathVariable("ownerId") final int ownerId, ModelMap model) {
-	    Pet p = this.petService.findPetById(petId);
-	    this.petService.deletePetAndVisits(p);
-	    return "redirect:/owners/{ownerId}";
+		if(this.ownerController.isAdmin() || this.ownerController.accedeASuOwner(ownerId)) {
+			Pet p = this.petService.findPetById(petId);
+		    this.petService.deletePetAndVisits(p);
+		    return "redirect:/owners/{ownerId}";
+		} else {
+			return "exception";
+		}
 	    
 //	    Pet pet = this.petService.findPetById(petId);
 // 		try {
