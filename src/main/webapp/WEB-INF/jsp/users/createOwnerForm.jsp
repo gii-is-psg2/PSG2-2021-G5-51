@@ -17,6 +17,7 @@
             <petclinic:inputField translate="yes" label="form.address" name="address"/>
             <petclinic:inputField translate="yes" label="form.city" name="city"/>
             <petclinic:inputField translate="yes" label="form.telephone" name="telephone"/>
+            <petclinic:inputField translate="yes" label="form.email" name="email"/>
             <petclinic:inputField translate="yes" label="form.username" name="user.username"/>
             <petclinic:inputField translate="yes" label="form.password" name="user.password"/>
         </div>
