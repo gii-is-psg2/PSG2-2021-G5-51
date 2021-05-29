@@ -48,15 +48,15 @@ class PetTypeFormatterTests {
 	@Test
 	void shouldParse() throws ParseException {
 		Mockito.when(clinicService.findPetTypes()).thenReturn(makePetTypes());
-		PetType petType = petTypeFormatter.parse("Bird", Locale.ENGLISH);
-		assertEquals("Bird", petType.getName());
+		PetType petType = petTypeFormatter.parse("Pajaro", Locale.ENGLISH);
+		assertEquals("Pajaro", petType.getName());
 	}
 
 	@Test
 	void shouldThrowParseException() throws ParseException {
 		Mockito.when(clinicService.findPetTypes()).thenReturn(makePetTypes());
 		Assertions.assertThrows(ParseException.class, () -> {
-			petTypeFormatter.parse("Fish", Locale.ENGLISH);
+			petTypeFormatter.parse("Pez", Locale.ENGLISH);
 		});
 	}
 
@@ -68,12 +68,12 @@ class PetTypeFormatterTests {
 		Collection<PetType> petTypes = new ArrayList<>();
 		petTypes.add(new PetType() {
 			{
-				setName("Dog");
+				setName("Perro");
 			}
 		});
 		petTypes.add(new PetType() {
 			{
-				setName("Bird");
+				setName("Pajaro");
 			}
 		});
 		return petTypes;
