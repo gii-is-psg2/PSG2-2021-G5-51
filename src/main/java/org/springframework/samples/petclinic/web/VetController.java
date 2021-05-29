@@ -17,23 +17,20 @@ package org.springframework.samples.petclinic.web;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
 import java.util.Map;
 
 import javax.validation.Valid;
 
 import org.springframework.beans.BeanUtils;
-
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.samples.petclinic.model.Specialty;
 import org.springframework.samples.petclinic.model.Vet;
 import org.springframework.samples.petclinic.model.Vets;
 import org.springframework.samples.petclinic.service.SpecialtyService;
 import org.springframework.samples.petclinic.service.VetService;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -42,7 +39,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -59,7 +55,7 @@ public class VetController {
 	public static final String VETs_FORM = "vets/createOrUpdateVetsForm";
 
 	@Autowired
-	public VetController(VetService clinicService, SpecialtyService specialtyService) {
+	public VetController(final VetService clinicService, final SpecialtyService specialtyService) {
 		this.vetService = clinicService;
 		this.specialtyService = specialtyService;
 	}
@@ -70,13 +66,16 @@ public class VetController {
 	}
 
 	@GetMapping(value = { "/vets" })
-	public String showVetList(Map<String, Object> model) {
+	public String showVetList(final Map<String, Object> model) {
 		// Here we are returning an object of type 'Vets' rather than a collection of
 		// Vet objects
 		// so it is simpler for Object-Xml mapping
 		final Vets vets = new Vets();
 		vets.getVetList().addAll(this.vetService.findVets());
 		model.put("vets", vets);
+		final Collection<GrantedAuthority> c = (Collection<GrantedAuthority>) SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		final boolean b = c.stream().anyMatch(x-> x.getAuthority().equals("admin"));
+		model.put("isAdmin", b);
 		return "vets/vetList";
 	}
 	
@@ -98,47 +97,47 @@ public class VetController {
 	}
 
 	@GetMapping("/vets/new")
-	public String saveNewVet(ModelMap model) {
+	public String saveNewVet(final ModelMap model) {
 
 		model.addAttribute("vet", new Vet());
 		
 
-		return VETs_FORM;
+		return VetController.VETs_FORM;
 	}
 
 	@PostMapping("/vets/new")
-	public String saveNewVet(@Valid Vet vet, BindingResult binding,@RequestParam(value="specialties", required= false) Collection<Specialty> specialties,  ModelMap model) {
+	public String saveNewVet(@Valid final Vet vet, final BindingResult binding,@RequestParam(value="specialties", required= false) final Collection<Specialty> specialties,  final ModelMap model) {
 		try {
 		if (binding.hasErrors()) {
 			model.addAttribute("message", "Datos del veterinario inválidos.");
-			return VETs_FORM;
+			return VetController.VETs_FORM;
 		} else {
 			  if(!(specialties==null)) {
 				  
-				  for(Specialty s:specialties) {
+				  for(final Specialty s:specialties) {
 						vet.addSpecialty(s);
 					} 
 			  }
 				
 			
-			vetService.save(vet);
+			this.vetService.save(vet);
 			model.addAttribute("message", "Nuevo veterinario creado");
 			return "redirect:/" + "vets";
 		
 		}
-		}catch(IllegalArgumentException ex){
+		}catch(final IllegalArgumentException ex){
             this.vetService.save(vet);
             return  "vets/createOrUpdateVetForm";
 		}
 	}
 
 	@GetMapping("/vets/{id}/edit")
-	public String editVet(@PathVariable("id") int id, ModelMap model) {
-		Vet vet = vetService.findById(id);
-		Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
-		Collection<Specialty> specialties = this.specialtyService.findSpecialties();
-		List<Specialty> specialtiesRemaining = new ArrayList<>();
-		for(Specialty s: specialties) {
+	public String editVet(@PathVariable("id") final int id, final ModelMap model) {
+		final Vet vet = this.vetService.findById(id);
+		final Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
+		final Collection<Specialty> specialties = this.specialtyService.findSpecialties();
+		final List<Specialty> specialtiesRemaining = new ArrayList<>();
+		for(final Specialty s: specialties) {
 			if(!specialtiesOfVet.contains(s)) {
 				specialtiesRemaining.add(s);
 			}
@@ -147,42 +146,42 @@ public class VetController {
 		
 		model.addAttribute("vet", vet);
 		model.addAttribute("specialtiesRemaining", specialtiesRemaining);
-		return VETs_FORM;
+		return VetController.VETs_FORM;
 	}
 
 	@PostMapping("/vets/{id}/edit")
-	public String editVet(@PathVariable("id") int id,@RequestParam(value="specialties", required= false) Collection<Specialty> specialties, @Valid Vet modifiedVet, BindingResult binding, ModelMap model) {
-		Vet vet = vetService.findById(id);
+	public String editVet(@PathVariable("id") final int id,@RequestParam(value="specialties", required= false) final Collection<Specialty> specialties, @Valid final Vet modifiedVet, final BindingResult binding, final ModelMap model) {
+		final Vet vet = this.vetService.findById(id);
 		try {
 
 		if (binding.hasErrors()) {
-			Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
-			Collection<Specialty> specialties2 = this.specialtyService.findSpecialties();
-			List<Specialty> specialtiesRemaining = new ArrayList<>();
-			for(Specialty s: specialties2) {
+			final Collection<Specialty> specialtiesOfVet = vet.getSpecialties();
+			final Collection<Specialty> specialties2 = this.specialtyService.findSpecialties();
+			final List<Specialty> specialtiesRemaining = new ArrayList<>();
+			for(final Specialty s: specialties2) {
 				if(!specialtiesOfVet.contains(s)) {
 					specialtiesRemaining.add(s);
 				}
 			}
 			model.addAttribute("specialtiesRemaining", specialtiesRemaining);
 			model.addAttribute("message", "Datos del veterinario inválidos.");
-			return VETs_FORM;
+			return VetController.VETs_FORM;
 		} else {
 			BeanUtils.copyProperties(modifiedVet, vet, "id"); 
 			if(!(specialties==null)) {
-			for(Specialty s:specialties) {
+			for(final Specialty s:specialties) {
 				vet.addSpecialty(s);
 			}
 			}
 			
-			vetService.save(vet);
+			this.vetService.save(vet);
 			model.addAttribute("message", "Datos del veterinario actualizados");
 			return "redirect:/" + "vets";
 		}
 		
-	} catch(IllegalArgumentException ex){
+	} catch(final IllegalArgumentException ex){
         BeanUtils.copyProperties(modifiedVet, vet, "id");
-        vetService.save(vet);
+        this.vetService.save(vet);
         model.addAttribute("message", "vet updated succesfully!");
         return "redirect:/" +"vets";
         }

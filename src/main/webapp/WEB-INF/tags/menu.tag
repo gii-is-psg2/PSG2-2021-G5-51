@@ -3,7 +3,7 @@
 <%@ taglib prefix="petclinic" tagdir="/WEB-INF/tags"%>
 <%@ taglib prefix="sec"
 	uri="http://www.springframework.org/security/tags"%>
-<!--  >%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%-->
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags"%>
 <%@ attribute name="name" required="true" rtexprvalue="true"
 	description="Name of the active menu: home, owners, vets or error"%>
 	
@@ -17,13 +17,16 @@
 </script>
 <script type="text/javascript">
 $(document).ready(function() {
-    $("#locales").change(function () {
-        var selectedOption = $('#locales').val();
-        if (selectedOption != ''){
-            window.location.replace('?lang=' + selectedOption);
-			localStorage.setItem("lang", selectedOption);
-        }
+	document.getElementById("locales").addEventListener("click",function () {
+            window.location.replace('?lang=es');
+			localStorage.setItem("lang", es);
+        
     });
+	document.getElementById("localen").addEventListener("click",function () {
+        window.location.replace('?lang=en');
+		localStorage.setItem("lang", en);
+    
+});
 	if (localStorage.getItem("lang") != null)
 		document.getElementById('locales').value=localStorage.getItem("lang");
 });
@@ -32,10 +35,10 @@ $(document).ready(function() {
 
 <nav class="navbar navbar-default" role="navigation">
 	<span><spring:message code="lang.change"/></span>:
-	<select id="locales">
-		<option value="en" selected><spring:message code="lang.en"/></option>
-		<option value="es"><spring:message code="lang.es"/></option>
-	</select>
+	
+	
+	<button type="button" value="es" id="locales"><spring:message code="lang.es"/></button>
+	<button type="button" value="en" id="localen"><spring:message code="lang.en"/></button>
 	<div class="container">
 		<div class="navbar-header">
 			<a class="navbar-brand"
@@ -57,12 +60,24 @@ $(document).ready(function() {
 					<span><spring:message code="menu.home"/></span>
 				</petclinic:menuItem>
 
-				<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
+
+				<sec:authorize access="hasAuthority('admin')">
+					<petclinic:menuItem active="${name eq 'owners'}" url="/owners/find"
 					title="find owners">
 					<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
 					<span><spring:message code="menu.findowners"/></span>
-				</petclinic:menuItem>
-
+					</petclinic:menuItem>
+				</sec:authorize>
+				
+				<sec:authorize access="hasAuthority('owner')">
+					<petclinic:menuItem active="${name eq 'owners'}" url="/owners/myowner"
+					title="my account">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						<span><spring:message code="menu.myaccount"/></span>
+					</petclinic:menuItem>
+				</sec:authorize>
+				
+				
 				<petclinic:menuItem active="${name eq 'vets'}" url="/vets"
 					title="veterinarians">
 					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
@@ -77,8 +92,14 @@ $(document).ready(function() {
 
 				<petclinic:menuItem active="${name eq 'adoption'}" url="/adoption"
 					title="adoption">
-					<span class="glyphicon glyphicon-warning-sign" aria-hidden="true"></span>
+					<span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
 					<span><spring:message code="menu.adoption"/></span>
+				</petclinic:menuItem>
+				
+				<petclinic:menuItem active="${name eq 'about'}" url="/about"
+					title="about">
+					<span class="glyphicon glyphicon-info-sign" aria-hidden="true"></span>
+					<span><spring:message code="menu.about"/></span>
 				</petclinic:menuItem>
 				
 				<petclinic:menuItem active="${name eq 'health'}" url="/manage/health"
